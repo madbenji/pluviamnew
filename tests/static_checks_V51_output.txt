@@ -1,0 +1,24 @@
+{
+  "syntaxJs": 11,
+  "htmlFiles": 9,
+  "localReferencesVerified": 84,
+  "missingLocalReferences": [],
+  "duplicateDomIds": [],
+  "originalFilesIdentical": 29,
+  "originalFilesModified": [
+    "_worker.js",
+    "admin.html",
+    "admin.js",
+    "index.html",
+    "mi-proyecto.html",
+    "mi-proyecto.js",
+    "roi-r7.js",
+    "visual-r7.css"
+  ],
+  "d1MigrationTables": [
+    "analytics_events_v50",
+    "lead_cases",
+    "project_documents_v50",
+    "project_events_v50"
+  ]
+}

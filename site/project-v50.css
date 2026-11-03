@@ -1,0 +1,8 @@
+.project-v50{border-top:1px solid rgba(133,232,247,.32);margin-top:24px;padding-top:18px}.project-v50 h3{font:750 23px Manrope,system-ui,sans-serif;color:#c6fffa}.project-v50 p{line-height:1.6}.project-actions{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}.project-disclaimer{font-size:12px;color:#a7bfcb}.project-warning{border-left:3px solid #ffe77d;padding:10px;color:#ffe0ac;background:#3d321c}
+.project-records{border-top:1px solid #3b8e9c;margin-top:20px;padding:16px 0;color:#d4eef4}.project-records details{border:1px solid #345e72;border-radius:10px;padding:12px;margin:9px 0}.project-records summary{cursor:pointer;font-weight:700;color:#8ceadc}.project-records p{white-space:pre-wrap;overflow-wrap:anywhere}.project-records li{font-size:13px;line-height:1.7}
+
+/* V51: consentimiento específico sin premarcado */
+.project-retell-consent{display:flex;align-items:flex-start;gap:12px;margin:18px 0 8px;padding:16px;background:rgba(15,115,137,.14);border:1px solid rgba(68,221,238,.3);border-radius:14px;font-size:.92rem;line-height:1.55;color:#d5f5fc}.project-retell-consent input{flex:none;width:21px;height:21px;accent-color:#43d9ee;margin-top:3px}.project-retell-consent span{flex:1}
+
+/* Enhanced document and consent blocks: opt-in independent from downloading PDF. */
+.project-v50{scroll-margin-top:20px}.project-v50 h3{letter-spacing:-.04em}.project-retell-consent{cursor:pointer}.project-retell-consent:focus-within{border-color:#7bfff4}.project-v50 .project-disclaimer{line-height:1.6}.project-records details[open]{background:rgba(20,56,70,.35)}

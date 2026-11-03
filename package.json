@@ -1,0 +1,11 @@
+{
+  "name": "pluviam-operations-release",
+  "private": true,
+  "version": "2026.10.26-restauracion-ux",
+  "type": "module",
+  "description": "Staging candidate restores original lead flags; three omnichannel checkout cards; no automatic mail app.",
+  "scripts": {
+    "test": "node --test tests/test_*.mjs",
+    "verify": "node --check site/_worker.js && node --check site/pagar.js && node --check site/admin.js && node --test tests/test_*.mjs && node tests/test_coherencia.mjs"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "status": "RELEASE_CANDIDATE_NO_PROD",
+  "source": "PLUVIAM_CIERRE_INTEGRAL_RELEASE_CANDIDATE",
+  "changed_files": [
+    {
+      "path": "404.html",
+      "before_sha256": "b6ba04b0339810047b45002547fc2cbfc2fba381761b6eb18ff5e45ebb913716",
+      "after_sha256": "539bb6da6d193bde088a6d6e951bf7957479a1c27c6d5c82df4c83031a6db5ba"
+    },
+    {
+      "path": "_worker.js",
+      "before_sha256": "02fc64570bd41ed8a5f76529be7c52eb5bdc64bb605baec98974d3a9c535804d",
+      "after_sha256": "73283c00e2c5d4707c8c70e5fd831fe4751435d983d2ce61ecfe8c3192f4daef"
+    },
+    {
+      "path": "academia.html",
+      "before_sha256": "99753b16162405389bba8286898d42bacefd2b2f56bf33bac1114a6f0a8a6ed3",
+      "after_sha256": "232c9b5caf0b401923417a9f18c3b2818e3c26a981dab95ace616e779eb7a354"
+    },
+    {
+      "path": "coherencia-site.css",
+      "before_sha256": null,
+      "after_sha256": "3d68e00c7e3111f40d7a9dd1eeeb8c98db353e3d61477471280daa32a46d373d"
+    },
+    {
+      "path": "contacto.html",
+      "before_sha256": "82af0ce937e33bc3810b7f6d2ab4500483d25d328ddcb1ae11187251e19d1a85",
+      "after_sha256": "0eb47088826eae8ffade0d94bcfce73f7613520318d14471ce917fa81687faf4"
+    },
+    {
+      "path": "cotizacion.html",
+      "before_sha256": "0edbd64085c51bcc3f56a0a66e5737be92b7e0b10e5ff56f9a96c6707463df3e",
+      "after_sha256": "572caa00fe92eff5189953230921e296dbd8cb1aaa0fa7c040fcbb1d4f90e9ca"
+    },
+    {
+      "path": "index.html",
+      "before_sha256": "d248e490cdbcedac768d92558d43cf57cb6457ac9edb001ba03d4375a5780bb7",
+      "after_sha256": "b7e3f7d2b914e5237f222ad85da8a6ed0f9211cf08e78d0c8e6f4e15e8ba0b63"
+    },
+    {
+      "path": "mi-proyecto.html",
+      "before_sha256": "d834c65dacde75cc8f8599d4036def1556d959cdd2b58034cebadab412bb4da1",
+      "after_sha256": "0b84fa35f87dd7305ad86dc3b54c5150e82a287417481595ac3280597ab17667"
+    },
+    {
+      "path": "modelo-3d.html",
+      "before_sha256": "47624c730a19c53c1d588f708f4eac3f426439a3981bdaf3ff6132a90650bc97",
+      "after_sha256": "6ab5158b7eb68cf82a02c8105d4185b83af4a1f7633b07ad805b772e1284157a"
+    },
+    {
+      "path": "privacidad.html",
+      "before_sha256": "fce480ca2cf32835cd3c4f0729fb33d826faa4fc44be0ad71ee52898cd648fae",
+      "after_sha256": "e4e628da0a020a53eec98c56a9ce86885b11a06b36461c24ecfe638b9dedf8f0"
+    }
+  ],
+  "removed": [],
+  "visual_tests": 24,
+  "note": "Worker changed ONLY to fix Contacto redirect loop; production not deployed"
+}

@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-25",
+  "baseline": "PLUVIAM_CIERRE_COHERENCIA_2026-10-25_CANDIDATO",
+  "candidate": "PLUVIAM_P0_CONTRATOS_HITOS_Y_NOTIFICACIONES_2026-10-25_NO_PROD",
+  "changed_files": [
+    "site/_worker.js",
+    "site/app.js",
+    "site/admin.html",
+    "site/admin.js",
+    "site/mi-proyecto.js",
+    "site/project-docs.js",
+    "migraciones/003_hitos_y_correos_p0.sql",
+    "tests/test_p0_hitos_2026.mjs"
+  ],
+  "dry_run_patch_rc": 0,
+  "dry_run_patch_tail": "checking file site/_worker.js\nchecking file site/app.js\nchecking file site/admin.html\nchecking file site/admin.js\nchecking file site/mi-proyecto.js\nchecking file site/project-docs.js\nchecking file migraciones/003_hitos_y_correos_p0.sql\nchecking file tests/test_p0_hitos_2026.mjs\n",
+  "sha256": {
+    "site/_worker.js": "b75942af3cbaf8c1364c3be98c7754c05ae4773869fe456a276bdd8a8a181cb0",
+    "site/app.js": "52f5772d24dc0f1d410cd6ae0b2d6c85b06d054950b37a44cfab8a7af699ac1b",
+    "site/admin.html": "1ad58297d06224e8ac27c1ecf5101e19daecc5fe32f8dccb3362125e46625e3f",
+    "site/admin.js": "9b7155abe1ccd6754fc95f2996268f5cc4a9b981effd2871c26f64e8d90c004a",
+    "site/mi-proyecto.js": "63049825118500ba76f0a93113609240504c777cac6e7478470d058db30ab517",
+    "site/project-docs.js": "697bfac3ea8d644d1cda10583bea70d4c2beda63f4697955a3a1b298d0951bfb",
+    "migraciones/003_hitos_y_correos_p0.sql": "d56bb5e727c57ade2b1f986834499f03c16ebeef4f1d04ea60f821cb5da9dda0",
+    "tests/test_p0_hitos_2026.mjs": "5f37359b2dcc4ea597e2144ad64041d61e1257af7d61ef2dad0d50851905a23d"
+  },
+  "production_deployment": false,
+  "actual_money_or_calls": false,
+  "created_zip": false
+}

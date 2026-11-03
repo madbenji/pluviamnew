@@ -1,0 +1,20 @@
+{
+  "status": "PASS_LOCAL_ONLY",
+  "retell_v51_assertions": 27,
+  "retell_v52_1_assertions": 24,
+  "v50_assertions": 20425,
+  "v52_scenario_combinations": 267840,
+  "v52_assertions": 2680528,
+  "v52_persistence_cases": 90,
+  "real_calls": 0,
+  "real_d1": false,
+  "real_retell_agent_api": false,
+  "site_files_unchanged": 41,
+  "modified": [
+    "retell-worker/index.js"
+  ],
+  "other_changes": [
+    "docs/RETELL_V52_1_VALERIA_CONTRATO.md",
+    "tests/test_retell_v52_1.mjs"
+  ]
+}

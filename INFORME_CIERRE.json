@@ -1,0 +1,60 @@
+{
+  "status": "RELEASE_CANDIDATE_NOT_DEPLOYED",
+  "source": "PLUVIAM V52.1 UX + Academia/Cotizacion, not verified against live deployment 70b74dac",
+  "checks": {
+    "all_local_paths_present": true,
+    "all_fragment_targets_present": true,
+    "mobile_menu_home": true,
+    "mobile_menu_academy": true,
+    "contact_has_four_routes": true,
+    "professional_academy": true,
+    "quote_has_five_stages": true,
+    "no_photos_upload_enabled": true,
+    "no_fake_professional_certificates": true,
+    "private_project_noindex": true,
+    "privacy_not_claimed_final": true
+  },
+  "changed_since_prior_candidate": [
+    "README_CIERRE_Y_DESPLIEGUE.md",
+    "INFORME_CIERRE.json",
+    "qa_visual_offline.json",
+    "MANIFEST_FINAL_SHA256.json",
+    "qa_capturas_final/cotizacion_1280.png",
+    "qa_capturas_final/index_390.png",
+    "qa_capturas_final/cotizacion_390.png",
+    "qa_capturas_final/contacto_390.png",
+    "qa_capturas_final/contacto_1280.png",
+    "qa_capturas_final/academia_1280.png",
+    "qa_capturas_final/index_1280.png",
+    "qa_capturas_final/academia_390.png",
+    "site/release-polish.css",
+    "site/contacto.html",
+    "site/index.html",
+    "site/academia.html"
+  ],
+  "visual_html_css_offline": {
+    "viewports": [
+      390,
+      768,
+      1280
+    ],
+    "pages": [
+      "index.html",
+      "academia.html",
+      "cotizacion.html",
+      "contacto.html",
+      "mi-proyecto.html",
+      "modelo-3d.html",
+      "privacidad.html",
+      "404.html"
+    ],
+    "cases": 24,
+    "horizontal_overflows": 0,
+    "notes": "Chromium set_content injected local CSS/images; no HTTP, real Cloudflare CSP, E2E APIs or mobile hardware tested."
+  },
+  "backend_unchanged": true,
+  "retell_worker_unchanged": true,
+  "D1_unchanged": true,
+  "production_untouched": true,
+  "security_gate": "M01 R16/R18 NO-GO per Command Center as of 25 Oct 2026"
+}

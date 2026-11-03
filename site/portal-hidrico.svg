@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="70 70 620 650" fill="none" role="img" aria-labelledby="title description">
+<title id="title">Portal hídrico PLUVIAM</title>
+<desc id="description">Arquitectura geométrica original de tres gotas, canales hidráulicos, placas azules y contornos violetas con detalles dorados.</desc>
+<defs>
+ <linearGradient id="frame" x1="125" y1="110" x2="639" y2="704" gradientUnits="userSpaceOnUse"><stop stop-color="#85E8F7"/><stop offset=".44" stop-color="#5879E7"/><stop offset="1" stop-color="#A278EE"/></linearGradient>
+ <linearGradient id="ink" x1="225" y1="150" x2="523" y2="600" gradientUnits="userSpaceOnUse"><stop stop-color="#163477"/><stop offset="1" stop-color="#17122F"/></linearGradient>
+ <linearGradient id="glass" x1="335" y1="230" x2="485" y2="490" gradientUnits="userSpaceOnUse"><stop stop-color="#A2F7F3"/><stop offset=".45" stop-color="#55CBE9"/><stop offset="1" stop-color="#6164DE"/></linearGradient>
+ <linearGradient id="gold" x1="150" y1="200" x2="550" y2="610" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF2AE"/><stop offset="1" stop-color="#DEB36D"/></linearGradient>
+ <pattern id="micro" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="11" cy="11" r="1.2" fill="#85E8F7" opacity=".23"/></pattern>
+ <pattern id="hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(33)"><path d="M0 0V12" stroke="#85E8F7" stroke-opacity=".17" stroke-width="1"/></pattern>
+ <filter id="soft"><feGaussianBlur stdDeviation="19"/></filter>
+ <g id="side-plate">
+  <path d="M371 169C291 147 236 187 181 235L117 301L135 339L214 304L231 348L168 391L184 430L258 408L274 486L314 501L331 396C319 342 335 243 371 169Z" fill="#263D93" stroke="#A278EE" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M334 190C273 190 228 226 180 269L143 308L155 320L230 284L249 321L205 375L223 393L281 370L297 447L314 454L324 378Z" fill="#66C7EE" stroke="#17122F" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M287 229L233 254L182 307M283 319L235 369M285 393L302 442" stroke="#D9A4FF" stroke-width="6" stroke-linecap="round"/>
+  <path d="M259 235L211 281M271 344L229 373M296 422L309 459" stroke="#17122F" stroke-width="3" stroke-linecap="round"/>
+  <path d="M138 334L101 354L118 386L160 375L175 396L135 422L151 454L217 420L207 386Z" fill="#A278EE" stroke="#17122F" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M116 353L143 365L152 377M149 422L166 439L198 413" stroke="#85E8F7" stroke-width="5"/>
+  <circle cx="213" cy="292" r="8" fill="#FFE77D" stroke="#17122F" stroke-width="4"/>
+  <circle cx="250" cy="386" r="6" fill="#FFE77D" stroke="#17122F" stroke-width="3"/>
+  <path d="M314 217L294 247L310 259L330 234Z" fill="#FFE77D" stroke="#17122F" stroke-width="3"/>
+ </g>
+ <g id="side-pillar">
+  <path d="M335 386L268 432L268 549L318 610L362 600L363 411Z" fill="#4469C5" stroke="#17122F" stroke-width="6"/>
+  <path d="M306 443L286 461V537L317 573L344 567V435Z" fill="#85E8F7" stroke="#17122F" stroke-width="5"/>
+  <path d="M297 486H334M297 512H334M301 537H331" stroke="#7A67E5" stroke-width="6" stroke-linecap="round"/>
+  <path d="M295 451L312 440L333 451" stroke="#FFE77D" stroke-width="4" stroke-linecap="round"/>
+ </g>
+</defs>
+<!-- restrained micro-grain and perimeter -->
+<circle cx="380" cy="364" r="320" stroke="#10ACAF" stroke-opacity=".23" stroke-width="1.5"/>
+<circle cx="380" cy="364" r="290" stroke="#85E8F7" stroke-opacity=".13" stroke-dasharray="3 12"/>
+<circle cx="380" cy="364" r="254" fill="#28336B" opacity=".21" filter="url(#soft)"/>
+<path d="M380 45V107M380 646V719M57 364H118M641 364H703" stroke="#85E8F7" stroke-opacity=".44" stroke-width="2"/>
+<g fill="#FFE77D"><circle cx="380" cy="45" r="4"/><circle cx="380" cy="719" r="4"/><circle cx="57" cy="364" r="3"/><circle cx="703" cy="364" r="3"/></g>
+<!-- outer paired plates -->
+<use href="#side-plate"/><use href="#side-plate" transform="translate(760 0) scale(-1 1)"/>
+<!-- stepped aqueduct silhouette -->
+<path d="M380 91L438 125V155L491 182V218L523 254V477L492 509V578L452 615H308L268 578V509L237 477V254L269 218V182L322 155V125L380 91Z" fill="#17122F" stroke="#A278EE" stroke-width="9" stroke-linejoin="round"/>
+<path d="M380 106L426 137V167L478 193V230L507 261V466L477 496V565L443 599H317L283 565V496L253 466V261L282 230V193L334 167V137L380 106Z" fill="url(#frame)" stroke="#17122F" stroke-width="6" stroke-linejoin="round"/>
+<path d="M380 134L402 151V188L458 219V253L479 276V454L458 476V555L434 574H326L302 555V476L281 454V276L302 253V219L358 188V151L380 134Z" fill="url(#ink)" stroke="#85E8F7" stroke-width="5" stroke-linejoin="round"/>
+<!-- architectural hatch on two piers -->
+<path d="M294 277H329V459H294Z M431 277H466V459H431Z" fill="url(#hatch)" stroke="#A278EE" stroke-width="2"/>
+<path d="M314 271V458M446 271V458" stroke="#85E8F7" stroke-opacity=".48" stroke-width="3" stroke-dasharray="10 13"/>
+<!-- concentric portal -->
+<path d="M380 184C450 220 454 273 454 350V462L426 496H334L306 462V350C306 273 310 220 380 184Z" fill="#8068DE" stroke="#17122F" stroke-width="9"/>
+<path d="M380 206C432 237 434 281 434 351V454L417 475H343L326 454V351C326 281 328 237 380 206Z" fill="#162D65" stroke="#85E8F7" stroke-width="5"/>
+<path d="M380 231C411 259 415 299 415 348V443H345V348C345 299 349 259 380 231Z" fill="url(#glass)" stroke="#17122F" stroke-width="5"/>
+<path d="M380 255C358 289 363 324 363 345C363 361 370 371 380 371C390 371 397 361 397 345C397 324 402 289 380 255Z" fill="#D5F9F6" stroke="#17122F" stroke-width="4"/>
+<path d="M380 278V355" stroke="#10ACAF" stroke-width="6" stroke-linecap="round"/>
+<path d="M354 386H406M349 402H411M345 418H415" stroke="#17122F" stroke-width="6" stroke-linecap="round"/>
+<path d="M354 386H406M349 402H411" stroke="#F48DE5" stroke-width="3" stroke-linecap="round"/>
+<!-- upper golden crest -->
+<path d="M380 119L397 136L380 160L363 136Z" fill="url(#gold)" stroke="#17122F" stroke-width="4"/>
+<path d="M344 177L358 193L348 212L333 201ZM416 177L402 193L412 212L427 201Z" fill="#FFE77D" stroke="#17122F" stroke-width="3"/>
+<!-- paired columns -->
+<use href="#side-pillar"/><use href="#side-pillar" transform="translate(760 0) scale(-1 1)"/>
+<!-- central blue lock -->
+<path d="M338 467L380 486L422 467V528L395 551H365L338 528Z" fill="#7A5FDB" stroke="#17122F" stroke-width="7"/>
+<path d="M353 492L380 502L407 492V523L389 540H371L353 523Z" fill="#87E6F1" stroke="#17122F" stroke-width="4"/>
+<path d="M369 514H391" stroke="#FFE77D" stroke-width="6" stroke-linecap="round"/>
+<!-- steps and platform -->
+<path d="M238 591H522L551 614L528 640H232L209 614Z" fill="#4F61C2" stroke="#17122F" stroke-width="7" stroke-linejoin="round"/>
+<path d="M280 573H480L510 598H250Z" fill="#85E8F7" stroke="#17122F" stroke-width="6"/>
+<path d="M256 610H504L526 634H234Z" fill="#A278EE" stroke="#17122F" stroke-width="6"/>
+<path d="M294 643H466L488 663H272Z" fill="#3DBFCD" stroke="#17122F" stroke-width="6"/>
+<path d="M327 667H433L446 681H314Z" fill="#FFE77D" stroke="#17122F" stroke-width="5"/>
+<path d="M276 615H329M431 615H484M314 648H338M422 648H446" stroke="#FFE77D" stroke-width="5" stroke-linecap="round"/>
+<path d="M338 581H422M329 599H431" stroke="#17122F" stroke-width="5" stroke-linecap="round"/>
+<!-- fine surrounding symbols -->
+<g stroke="#85E8F7" stroke-width="3" stroke-linecap="round" opacity=".85"><path d="M126 226H151M139 214V238"/><path d="M609 226H634M621 214V238"/><path d="M129 527H154M142 515V539"/><path d="M606 527H631M619 515V539"/></g>
+<g fill="#FFE77D" stroke="#17122F" stroke-width="3"><circle cx="138" cy="226" r="6"/><circle cx="622" cy="226" r="6"/><circle cx="142" cy="527" r="6"/><circle cx="618" cy="527" r="6"/></g>
+<path d="M187 138H252M508 138H573M187 582H220M540 582H573" stroke="#85E8F7" stroke-opacity=".44" stroke-width="2"/>
+</svg>

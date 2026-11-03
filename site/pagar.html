@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es-MX"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive"><meta name="theme-color" content="#061824">
+<meta name="description" content="Revisa, acepta y paga tu propuesta PLUVIAM desde un solo lugar.">
+<title>Pago seguro | PLUVIAM</title><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/pagar.css"><script src="/pagar.js" defer></script></head>
+<body><div class="ambient" aria-hidden="true"></div><div class="shell">
+<header class="topbar"><a class="brand" href="/"><img src="/pluviam-logo-transparente.png" alt=""><span>PLUVIAM<small>INFRAESTRUCTURA HÍDRICA</small></span></a>
+<a class="back" href="/mi-proyecto.html">Mi proyecto <span aria-hidden="true">↗</span></a></header>
+<main>
+<div class="hero"><div class="eyebrow"><span class="live-dot"></span> PORTAL PRIVADO DE PAGO</div><h1>Tu proyecto, <em>un paso adelante.</em></h1><p>Revisa tu propuesta, acepta sus condiciones y elige cómo pagar de forma segura. La confirmación se verifica directamente con el proveedor de pago.</p></div>
+<section class="quick-pay" aria-labelledby="quick-pay-heading">
+ <div class="quick-pay-head"><div><span class="eyebrow">TRES FORMAS DE PAGAR</span><h2 id="quick-pay-heading">Elige tu método</h2></div><p>Selecciona tu método. Si acabas de guardar tu diagnóstico, tu expediente se recupera automáticamente en este navegador.</p></div>
+ <div class="quick-pay-cards" id="quick-pay-cards">
+  <button type="button" class="quick-pay-card" data-pay-method="mercadopago"><span class="quick-symbol">▤</span><b>Mercado Pago</b><small>Tarjeta / Checkout Pro</small><span class="quick-cta">Continuar ↗</span></button>
+  <button type="button" class="quick-pay-card" data-pay-method="spei"><span class="quick-symbol">⌁</span><b>SPEI / CoDi</b><small>Transferencia bancaria</small><span class="quick-cta">Continuar ↗</span></button>
+  <button type="button" class="quick-pay-card" data-pay-method="crypto"><span class="quick-symbol">₿</span><b>Criptomonedas</b><small>USDT / Crypto gateway</small><span class="quick-cta">Continuar ↗</span></button>
+ </div><p class="quick-pay-feedback" role="status" aria-live="polite" id="quick-pay-feedback">Los tres métodos se muestran siempre. El importe se consulta antes de procesar el pago.</p>
+</section>
+<div class="layout"><section class="panel" aria-labelledby="access-title"><div class="section-title"><span class="step">01</span><h2 id="access-title">Accede a tu propuesta</h2></div>
+<p id="account-summary" class="account-summary" hidden></p><form id="access-form" autocomplete="off"><label>Folio del proyecto<input id="folio" name="folio" placeholder="PLV-..." maxlength="65" required spellcheck="false"></label>
+<label>Clave privada de seguimiento<input id="token" name="token" type="password" placeholder="Tu clave privada" maxlength="200" autocomplete="off" required></label>
+<button class="main-btn" type="submit" id="lookup">Consultar mi propuesta <span aria-hidden="true">→</span></button><p class="error" id="lookup-message" role="status" aria-live="polite"></p></form>
+<div class="trustline"><span>◈ Expediente verificado</span><span>◈ Importes desde D1</span></div></section>
+<section class="panel receipt" id="checkout-panel" aria-labelledby="checkout-title"><div class="section-title"><span class="step">02</span><h2 id="checkout-title">Resumen y pago</h2></div>
+<div id="empty-state"><div class="placeholder-icon">◉</div><h3>Tu propuesta aparecerá aquí.</h3><p>Tu propuesta aparecerá aquí cuando esté lista. No necesitas repetir el diagnóstico.</p></div>
+<div id="offer" hidden><div class="tag" id="offer-badge">Cotización en revisión</div><h3 class="quote-summary" id="offer-summary"></h3><div class="moneyline"><span>Precio total autorizado</span><strong id="total">—</strong></div><div class="moneyline outstanding"><span id="milestone-label">Siguiente pago</span><strong id="due">—</strong></div>
+<div id="milestone-list" class="milestones"></div>
+<div class="divider"></div><div class="docs"><button type="button" class="soft-btn" id="download-pdf">↓ Descargar propuesta PDF</button><p id="offer-terms" class="terms"></p><label class="accept"><input type="checkbox" id="accept-terms"><span>Leí y acepto la propuesta y las condiciones contractuales de este folio.</span></label><button id="accept-btn" type="button" class="outline-btn">Registrar mi aceptación</button><p id="accept-status" role="status" aria-live="polite"></p></div>
+<h3 class="pay-title">Selecciona cómo pagar</h3><div id="methods" class="methods"><p class="quiet">Primero revisa y acepta tu propuesta.</p></div><p class="disclaimer">El regreso a esta pantalla no confirma un pago. PLUVIAM lo acreditará solo cuando lo valide con la pasarela o el banco.</p></div></section></div>
+<section class="how"><div><b>01 — PROPUESTA</b><span>Alcance, precio y documentos claros.</span></div><div><b>02 — ACEPTACIÓN</b><span>Autorizas la versión exacta que recibiste.</span></div><div><b>03 — PAGO</b><span>Tarjeta / SPEI, BBVA o crypto si están habilitados.</span></div></section>
+</main><footer><span>© PLUVIAM · 2026</span><span>¿Dudas? <span class="plain-email">pluviammx@gmail.com</span></span><a href="/privacidad.html">Privacidad</a></footer></div></body></html>

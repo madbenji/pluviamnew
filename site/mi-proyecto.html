@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050b12">
+  <meta name="description" content="Consulta de forma privada el avance, la propuesta y los documentos de tu expediente PLUVIAM.">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Mi proyecto | PLUVIAM</title>
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/identity-v46-r2.css">
+  <link rel="stylesheet" href="/project-v50.css">
+  <link rel="stylesheet" href="/project-premium.css">
+  <script src="/water.js" defer></script>
+<link rel="stylesheet" href="/coherencia-site.css"></head>
+<body class="project-premium-page">
+  <canvas id="water-canvas" aria-hidden="true"></canvas>
+  <div class="shell">
+    <header class="nav">
+      <a class="brand" href="/"><img class="brand-mark" src="/pluviam-gotas.png" alt="">PLUVIAM</a>
+      <a class="nav-action" href="/">← Inicio</a>
+    </header><nav class="pluviam-coherence-nav" aria-label="Secciones de PLUVIAM"><a href="/">Inicio</a><a href="/#sistema">El sistema</a><a href="/modelo-3d.html">Casa 3D</a><a href="/cotizacion.html">Cotización</a><a href="/academia.html">Academia</a><a href="/mi-proyecto.html" aria-current="page">Mi proyecto</a><a href="/contacto.html">Contacto</a></nav>
+    <main class="subpage" id="contenido">
+      <div class="section-kicker">TU EXPEDIENTE PRIVADO / PLUVIAM</div>
+      <h1>Tu proyecto.<br><em class="project-emphasis">Cada paso, claro.</em></h1>
+      <p class="project-intro">Consulta el estado de tu solicitud, revisa los avances documentados y conoce cuándo existe una propuesta formal lista para continuar. Necesitas tu folio y tu clave privada.</p>
+      <div class="project-trust" aria-label="Seguridad del expediente">
+        <span>◈ Acceso privado por folio y clave</span>
+        <span>◈ Sin cobros por estimaciones</span>
+        <span>◈ Etapas y documentos reales</span>
+      </div>
+      <section class="info-panel project-access" aria-labelledby="access-title">
+        <h2 id="access-title">Consultar mi expediente</h2>
+        <form id="lookup-form" autocomplete="off">
+          <div class="field-grid">
+            <label class="field">Folio del proyecto
+              <input id="folio" name="folio" placeholder="PLV-..." required maxlength="60" autocomplete="off" autocapitalize="characters" spellcheck="false">
+            </label>
+            <label class="field">Clave privada de seguimiento
+              <input id="token" name="token" type="password" placeholder="Tu clave de acceso" required maxlength="200" autocomplete="off" spellcheck="false">
+            </label>
+          </div>
+          <div class="quiz-controls"><button class="button button-primary" type="submit">Consultar mi proyecto ↗</button></div>
+          <p class="form-message" id="feedback" role="status" aria-live="polite"></p>
+        </form>
+        <p class="project-security-note">No publiques tu clave privada ni la compartas por WhatsApp. PLUVIAM nunca necesita que nos la envíes para localizar tu folio.</p>
+      </section>
+      <div style="margin:16px 0 24px"><a class="button button-primary" href="/pagar.html">Ver propuesta y métodos de pago ↗</a></div>
+      <section class="info-panel project-verified-result" id="project-result" aria-live="polite" hidden></section>
+      <section class="project-guidance" aria-labelledby="route-title">
+        <div class="section-kicker">QUÉ SUCEDE DESPUÉS</div>
+        <h2 id="route-title">Del diagnóstico a una solución instalada.</h2>
+        <div class="project-guidance-grid">
+          <article><b>01 / ENTENDER</b><h3>Diagnóstico y viabilidad</h3><p>Se revisan techo, usos, suministro y condiciones técnicas. La estimación no sustituye la visita.</p></article>
+          <article><b>02 / VALIDAR</b><h3>Propuesta y contrato</h3><p>El alcance, la ingeniería y los importes se aprueban antes de solicitar un anticipo.</p></article>
+          <article><b>03 / EJECUTAR</b><h3>Instalación y calidad</h3><p>Los trabajos, pruebas, entrega y mantenimiento se documentan conforme al proyecto contratado.</p></article>
+        </div>
+      </section>
+      <p class="project-footnote">¿Necesitas ayuda? Escribe a <span class="plain-email">pluviammx@gmail.com</span> e indica solamente tu folio, nunca tu clave privada. <a href="/privacidad.html">Información de privacidad</a>.</p>
+    </main><footer class="pluviam-coherence-footer" aria-label="Enlaces de PLUVIAM"><span>PLUVIAM © 2026 · INFRAESTRUCTURA HÍDRICA</span><nav aria-label="Enlaces al pie"><a href="/">Inicio</a><a href="/cotizacion.html">Cotización</a><a href="/academia.html">Academia</a><a href="/mi-proyecto.html">Mi proyecto</a><a href="/contacto.html">Contacto</a><a href="/privacidad.html">Privacidad</a></nav></footer>
+  </div>
+  <script src="/mi-proyecto.js" defer></script>
+  <script src="/project-timeline.js" defer></script>
+  <script src="/project-docs.js" defer></script>
+  <script src="/diagnostic-snapshot.js" defer></script>
+</body>
+</html>

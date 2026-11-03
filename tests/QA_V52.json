@@ -1,0 +1,11 @@
+{
+  "success": true,
+  "scenarioCombinations": 267840,
+  "assertions": 2680528,
+  "apiParityCases": 405,
+  "persistAndRetrieveCases": 90,
+  "corruptPayloadsRejected": 6,
+  "algorithmVersion": "V46-R7-CALC-2026-10-24",
+  "realD1": false,
+  "realPayments": false
+}

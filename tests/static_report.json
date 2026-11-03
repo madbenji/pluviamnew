@@ -1,0 +1,73 @@
+{
+  "syntaxJs": 11,
+  "jsFiles": [
+    "_worker.js",
+    "admin.js",
+    "app.js",
+    "engine.js",
+    "mi-proyecto.js",
+    "modelo-3d.js",
+    "project-docs.js",
+    "quote-r7.js",
+    "roi-r7.js",
+    "system.js",
+    "water.js"
+  ],
+  "htmlFiles": 9,
+  "localReferencesVerified": 84,
+  "missingLocalReferences": [],
+  "duplicateDomIds": [],
+  "originalFilesIdentical": 29,
+  "unchanged": [
+    "404.html",
+    "_headers",
+    "academia.html",
+    "app.js",
+    "assets/captacion.svg",
+    "assets/cisterna.svg",
+    "assets/filtracion.svg",
+    "contacto.html",
+    "cotizacion.html",
+    "engine.js",
+    "favicon.png",
+    "favicon.svg",
+    "identity-v46-r2.css",
+    "modelo-3d.css",
+    "modelo-3d.html",
+    "modelo-3d.js",
+    "pluviam-gotas.png",
+    "pluviam-logo-oscuro.png",
+    "pluviam-logo-transparente.png",
+    "pluviam-mark.svg",
+    "portal-hidrico.svg",
+    "privacidad.html",
+    "quote-r7.js",
+    "styles.css",
+    "system.js",
+    "visual-captacion.svg",
+    "visual-reserva.svg",
+    "visual-tratamiento.svg",
+    "water.js"
+  ],
+  "originalFilesModified": [
+    "_worker.js",
+    "admin.html",
+    "admin.js",
+    "index.html",
+    "mi-proyecto.html",
+    "mi-proyecto.js",
+    "roi-r7.js",
+    "visual-r7.css"
+  ],
+  "newFiles": [
+    "admin-v50.css",
+    "project-docs.js",
+    "project-v50.css"
+  ],
+  "d1MigrationTables": [
+    "analytics_events_v50",
+    "lead_cases",
+    "project_documents_v50",
+    "project_events_v50"
+  ]
+}

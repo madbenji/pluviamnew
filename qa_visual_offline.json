@@ -1,0 +1,240 @@
+[
+  {
+    "viewport": 390,
+    "scrollWidth": 390,
+    "bodyWidth": 390,
+    "title": "PLUVIAM | Captación de lluvia a tu medida.",
+    "h1": "El agua.A tu altura.",
+    "page": "index.html",
+    "overflow": false,
+    "menuVisible": true,
+    "menuOpen": true,
+    "menuQuoteVisible": true
+  },
+  {
+    "viewport": 390,
+    "scrollWidth": 390,
+    "bodyWidth": 390,
+    "title": "Academia y red profesional | PLUVIAM",
+    "h1": "Profesionales que hacen posible el agua.",
+    "page": "academia.html",
+    "overflow": false,
+    "menuVisible": true,
+    "menuOpen": true,
+    "menuQuoteVisible": true
+  },
+  {
+    "viewport": 390,
+    "scrollWidth": 390,
+    "bodyWidth": 390,
+    "title": "Cotización y propuesta | PLUVIAM",
+    "h1": "De una idea a una propuesta clara.",
+    "page": "cotizacion.html",
+    "overflow": false,
+    "coherenceNavVisible": true,
+    "contactLinkVisible": true
+  },
+  {
+    "viewport": 390,
+    "scrollWidth": 390,
+    "bodyWidth": 390,
+    "title": "Contacto | PLUVIAM",
+    "h1": "Hablemosde tu agua.",
+    "page": "contacto.html",
+    "overflow": false,
+    "coherenceNavVisible": true,
+    "contactLinkVisible": true
+  },
+  {
+    "viewport": 390,
+    "scrollWidth": 390,
+    "bodyWidth": 390,
+    "title": "Mi proyecto | PLUVIAM",
+    "h1": "Tu proyecto.Cada paso, claro.",
+    "page": "mi-proyecto.html",
+    "overflow": false,
+    "coherenceNavVisible": true,
+    "contactLinkVisible": true
+  },
+  {
+    "viewport": 390,
+    "scrollWidth": 390,
+    "bodyWidth": 390,
+    "title": "Privacidad | PLUVIAM",
+    "h1": "Tu informaciónes tuya.",
+    "page": "privacidad.html",
+    "overflow": false,
+    "coherenceNavVisible": true,
+    "contactLinkVisible": true
+  },
+  {
+    "viewport": 390,
+    "scrollWidth": 390,
+    "bodyWidth": 390,
+    "title": "Modelo 3D interactivo | PLUVIAM",
+    "h1": "El agua en tu casa.Desde cualquier ángulo.",
+    "page": "modelo-3d.html",
+    "overflow": false,
+    "coherenceNavVisible": true,
+    "contactLinkVisible": true
+  },
+  {
+    "viewport": 390,
+    "scrollWidth": 390,
+    "bodyWidth": 390,
+    "title": "PLUVIAM · Página no encontrada",
+    "h1": "Esta ruta no tiene agua.",
+    "page": "404.html",
+    "overflow": false
+  },
+  {
+    "viewport": 768,
+    "scrollWidth": 768,
+    "bodyWidth": 768,
+    "title": "PLUVIAM | Captación de lluvia a tu medida.",
+    "h1": "El agua.A tu altura.",
+    "page": "index.html",
+    "overflow": false,
+    "menuVisible": true,
+    "menuOpen": true,
+    "menuQuoteVisible": true
+  },
+  {
+    "viewport": 768,
+    "scrollWidth": 768,
+    "bodyWidth": 768,
+    "title": "Academia y red profesional | PLUVIAM",
+    "h1": "Profesionales que hacen posible el agua.",
+    "page": "academia.html",
+    "overflow": false,
+    "menuVisible": true,
+    "menuOpen": true,
+    "menuQuoteVisible": true
+  },
+  {
+    "viewport": 768,
+    "scrollWidth": 768,
+    "bodyWidth": 768,
+    "title": "Cotización y propuesta | PLUVIAM",
+    "h1": "De una idea a una propuesta clara.",
+    "page": "cotizacion.html",
+    "overflow": false
+  },
+  {
+    "viewport": 768,
+    "scrollWidth": 768,
+    "bodyWidth": 768,
+    "title": "Contacto | PLUVIAM",
+    "h1": "Hablemosde tu agua.",
+    "page": "contacto.html",
+    "overflow": false
+  },
+  {
+    "viewport": 768,
+    "scrollWidth": 768,
+    "bodyWidth": 768,
+    "title": "Mi proyecto | PLUVIAM",
+    "h1": "Tu proyecto.Cada paso, claro.",
+    "page": "mi-proyecto.html",
+    "overflow": false
+  },
+  {
+    "viewport": 768,
+    "scrollWidth": 768,
+    "bodyWidth": 768,
+    "title": "Privacidad | PLUVIAM",
+    "h1": "Tu informaciónes tuya.",
+    "page": "privacidad.html",
+    "overflow": false
+  },
+  {
+    "viewport": 768,
+    "scrollWidth": 768,
+    "bodyWidth": 768,
+    "title": "Modelo 3D interactivo | PLUVIAM",
+    "h1": "El agua en tu casa.Desde cualquier ángulo.",
+    "page": "modelo-3d.html",
+    "overflow": false
+  },
+  {
+    "viewport": 768,
+    "scrollWidth": 768,
+    "bodyWidth": 768,
+    "title": "PLUVIAM · Página no encontrada",
+    "h1": "Esta ruta no tiene agua.",
+    "page": "404.html",
+    "overflow": false
+  },
+  {
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "bodyWidth": 1280,
+    "title": "PLUVIAM | Captación de lluvia a tu medida.",
+    "h1": "El agua.A tu altura.",
+    "page": "index.html",
+    "overflow": false
+  },
+  {
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "bodyWidth": 1280,
+    "title": "Academia y red profesional | PLUVIAM",
+    "h1": "Profesionales que hacen posible el agua.",
+    "page": "academia.html",
+    "overflow": false
+  },
+  {
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "bodyWidth": 1280,
+    "title": "Cotización y propuesta | PLUVIAM",
+    "h1": "De una idea a una propuesta clara.",
+    "page": "cotizacion.html",
+    "overflow": false
+  },
+  {
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "bodyWidth": 1280,
+    "title": "Contacto | PLUVIAM",
+    "h1": "Hablemosde tu agua.",
+    "page": "contacto.html",
+    "overflow": false
+  },
+  {
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "bodyWidth": 1280,
+    "title": "Mi proyecto | PLUVIAM",
+    "h1": "Tu proyecto.Cada paso, claro.",
+    "page": "mi-proyecto.html",
+    "overflow": false
+  },
+  {
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "bodyWidth": 1280,
+    "title": "Privacidad | PLUVIAM",
+    "h1": "Tu informaciónes tuya.",
+    "page": "privacidad.html",
+    "overflow": false
+  },
+  {
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "bodyWidth": 1280,
+    "title": "Modelo 3D interactivo | PLUVIAM",
+    "h1": "El agua en tu casa.Desde cualquier ángulo.",
+    "page": "modelo-3d.html",
+    "overflow": false
+  },
+  {
+    "viewport": 1280,
+    "scrollWidth": 1280,
+    "bodyWidth": 1280,
+    "title": "PLUVIAM · Página no encontrada",
+    "h1": "Esta ruta no tiene agua.",
+    "page": "404.html",
+    "overflow": false
+  }
+]

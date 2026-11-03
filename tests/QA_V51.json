@@ -1,0 +1,20 @@
+{
+  "version": "PLUVIAM V51",
+  "source": "V50 preserved",
+  "original_site_files_unchanged": 36,
+  "modified": [
+    "_worker.js",
+    "mi-proyecto.js",
+    "project-docs.js",
+    "project-v50.css"
+  ],
+  "new_static_files": [],
+  "javascript_syntax_checked": 13,
+  "d1_migration": "idempotent, additive",
+  "site_files_total": 40,
+  "retell_disabled_by_default": true,
+  "retell_live_test": "NOT RUN - no credentials/approval",
+  "browser_real_E2E": "NOT RUN - environment blocks",
+  "actual_calls_placed": 0,
+  "baseline_archived": true
+}

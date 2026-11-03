@@ -1,0 +1,35 @@
+/* PLUVIAM final UX polish: navigation and contact only; no backend changes. */
+.pluviam-mobile-menu{display:none}
+.pluviam-mobile-menu summary{cursor:pointer;list-style:none;border:1px solid rgba(133,232,247,.4);border-radius:12px;padding:10px 15px;font-size:13px;font-weight:700;color:#d8faff;background:rgba(8,31,45,.85);min-height:43px;display:flex;align-items:center;gap:8px}
+.pluviam-mobile-menu summary::-webkit-details-marker{display:none}
+.pluviam-mobile-menu summary:focus-visible,.pluviam-mobile-menu a:focus-visible{outline:3px solid #85e8f7;outline-offset:3px}
+.pluviam-mobile-menu details[open] summary{border-color:#85e8f7}
+.pluviam-mobile-menu-links{position:absolute;z-index:100;right:0;top:calc(100% - 5px);width:min(325px,calc(100vw - 36px));display:grid;gap:4px;padding:12px;border:1px solid rgba(133,232,247,.45);background:#10182a;border-radius:14px;box-shadow:0 25px 60px rgba(0,0,0,.65)}
+.pluviam-mobile-menu-links a{display:block;border-radius:8px;padding:13px 12px;color:#e7ffff;font-size:14px;text-decoration:none}
+.pluviam-mobile-menu-links a:hover,.pluviam-mobile-menu-links a:focus{background:rgba(110,215,237,.17)}
+.pluviam-step-context{font-size:12px;line-height:1.55;color:#a9cbd6;margin:9px 0 16px}
+.pluviam-contact-page .subpage{max-width:930px}
+.pluviam-contact-page .contact-intro{max-width:660px;font-size:17px}
+.pluviam-contact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px;margin-top:25px}
+.pluviam-contact-grid article{border:1px solid rgba(133,232,247,.31);background:linear-gradient(145deg,rgba(16,43,61,.94),rgba(24,22,48,.88));padding:27px;border-radius:18px;display:flex;flex-direction:column;gap:8px}
+.pluviam-contact-grid h2{font-size:25px;margin:5px 0 2px}
+.pluviam-contact-grid p{margin:3px 0 16px;flex:1}
+.pluviam-contact-grid .journey-tag{font-weight:700;letter-spacing:.09em;color:#80e6ec;font-size:11px}
+.pluviam-contact-grid a{display:inline-flex;justify-content:center;text-align:center;align-items:center;min-height:49px;border:1px solid rgba(133,232,247,.45);border-radius:9px;padding:10px 14px;color:#d5fcff;font-weight:700;font-size:13px}
+.pluviam-contact-grid a.primary-contact{background:linear-gradient(105deg,#85e8f7,#10acaf);color:#0b1727}
+.pluviam-contact-grid a:hover{background:rgba(133,232,247,.17)}
+.pluviam-contact-grid a.primary-contact:hover{background:#a7f3fa}
+.pluviam-contact-policy{margin:30px 0;padding:18px 22px;border-left:3px solid #85e8f7;background:rgba(17,57,70,.42);border-radius:0 10px 10px 0}
+.pluviam-contact-policy p{margin:5px 0}
+.pluviam-contact-policy a{text-decoration:underline;color:#85e8f7}
+@media(max-width:760px){
+ .topbar .toplinks{display:none!important}
+ .topbar .pluviam-mobile-menu{display:block;margin-left:auto}
+ .topbar .status-dot{display:none}
+ .topbar{gap:8px;min-height:76px;height:auto;padding:15px 0}
+ .topbar .logo{min-width:0;max-width:calc(100vw - 160px);font-size:clamp(14px,3.8vw,19px)}
+ .topbar .logo small{letter-spacing:.1em;white-space:normal;line-height:1.5}
+ .pluviam-contact-grid{grid-template-columns:1fr}
+}
+@media(max-width:430px){.topbar .brand-mark{width:27px;height:27px}.topbar .logo{gap:7px;letter-spacing:.06em}.pluviam-mobile-menu summary{padding:10px 11px}}
+@media(prefers-reduced-motion:reduce){.pluviam-mobile-menu *, .pluviam-contact-grid *{transition:none!important}}

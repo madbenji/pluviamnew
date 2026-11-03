@@ -1,0 +1,23 @@
+name = "pluviam-retell-v51-staging"
+main = "index.js"
+compatibility_date = "2026-10-01"
+workers_dev = false
+# cron UTC cada minuto: evaluación a partir de 3 minutos; no es garantía de exactitud al segundo.
+[triggers]
+crons = ["* * * * *"]
+[[d1_databases]]
+binding = "DB"
+database_name = "PLUVIAM_STAGING_DB_NAME"
+database_id = "REPLACE_WITH_STAGING_D1_ID"
+[vars]
+RETELL_ENABLED = "false"
+RETELL_LAUNCH_APPROVED = "false"
+RETELL_PRIVACY_APPROVED = "false"
+RETELL_COST_APPROVED = "false"
+RETELL_MX_OUTBOUND_APPROVED = "false"
+RETELL_AGENT_ID = ""
+RETELL_PHONE_NUMBER = ""
+RETELL_RESCUE_DELAY_SECONDS = "180"
+RETELL_MAX_CALLS_PER_DAY = "0"
+QUOTE_VALIDITY_APPROVED = "false"
+# API KEY = wrangler secret put RETELL_API_KEY, NO guardar nunca aquí.
