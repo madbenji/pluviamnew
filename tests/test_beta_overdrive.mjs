@@ -23,7 +23,8 @@ function makeEnv() {
   const db = new DatabaseSync(':memory:');
   db.exec(readFileSync(new URL('../migraciones/006_overdrive_beta.sql', import.meta.url), 'utf8'));
   db.exec(readFileSync(new URL('../migraciones_beta/007_pluviam3_identity_store_assistant.sql', import.meta.url), 'utf8'));
-  return { BETA_MODE: 'true', BETA_ISOLATED: 'true', BETA_SYNTHETIC_MODE: 'true', DB_BETA: new D1Adapter(db), ASSETS: { fetch: async () => new Response('asset') } };
+  db.exec(readFileSync(new URL('../migraciones_beta/008_pluviam3_allies_avianny_actions.sql', import.meta.url), 'utf8'));
+  return { BETA_MODE: 'true', BETA_ISOLATED: 'true', BETA_SYNTHETIC_MODE: 'true', BETA_ACCESS_DEFAULT_ROLE: 'customer', DB_BETA: new D1Adapter(db), ASSETS: { fetch: async () => new Response('asset') } };
 }
 
 async function call(env, path, session, body, method = body ? 'POST' : 'GET', extraHeaders = {}) {
@@ -57,11 +58,11 @@ test('02 · unauthorized access is rejected', async () => {
   assert.equal(r.status, 401);
 });
 
-test('03 · admin sees exactly two synthetic allies without public logos', async () => {
+test('03 · admin sees three founder-approved beta ally profiles with official Preview logos', async () => {
   const r = await call(makeEnv(), '/api/beta/allies', 'beta-admin-synthetic');
   assert.equal(r.status, 200);
-  assert.deepEqual(r.payload.allies.map((x) => x.id), ['AL-BETA-345', 'AL-BETA-FERNANDO']);
-  assert.ok(r.payload.allies.every((x) => x.publicLogo === false && x.publicStatus === 'NO PUBLICABLE'));
+  assert.deepEqual(r.payload.allies.map((x) => x.id), ['AL-BETA-345', 'AL-BETA-FERNANDO', 'AL-BETA-ISLA']);
+  assert.ok(r.payload.allies.every((x) => x.publicLogo === true && x.logoLicenseStatus === 'FOUNDER_APPROVED_PREVIEW' && x.founderApprovalStatus === 'APPROVED_BY_FOUNDER'));
 });
 
 test('04 · customer creates a consented synthetic opportunity', async () => {
@@ -187,5 +188,18 @@ test('15 · shared cart, membership request and Avianny demo write only to DB_BE
   const assistant = await call(env, '/api/beta/assistant', 'beta-customer-synthetic', { channel: 'web', message: 'Necesito mantenimiento de filtros' });
   assert.equal(assistant.status, 200);
   assert.equal(assistant.payload.mode, 'DEMO_NO_CREDENTIAL');
+  assert.equal(assistant.payload.executionMode, 'DB_BETA_TOOLS');
+  assert.equal(assistant.payload.action.type, 'maintenance_request');
   assert.equal(assistant.payload.externalActionsEnabled, false);
+});
+
+test('16 · Access-authenticated unmapped user gets least-privilege customer tools', async () => {
+  const env = makeEnv();
+  const assistant = await call(env, '/api/beta/assistant', '', { channel: 'web', message: 'Prepara tres soluciones para mi propiedad' }, 'POST', { 'Cf-Access-Authenticated-User-Email': 'founder@example.test' });
+  assert.equal(assistant.status, 200);
+  assert.equal(assistant.payload.action.type, 'quote_draft');
+  assert.equal(assistant.payload.action.offers.length, 3);
+  const maintenance = await call(env, '/api/beta/assistant', '', { channel: 'web', message: 'Necesito mantenimiento de filtro' }, 'POST', { 'Cf-Access-Authenticated-User-Email': 'founder@example.test' });
+  assert.equal(maintenance.status, 200);
+  assert.equal(maintenance.payload.action.type, 'maintenance_request');
 });

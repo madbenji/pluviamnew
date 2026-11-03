@@ -639,16 +639,28 @@ async function nowpaymentsWebhook(request,env){
 }
 
 // Pages Advanced Mode invariant: if(!path.startsWith('/api/'))return env.ASSETS.fetch(request)
-// The wrapper below injects the shared Avianny UI while preserving that asset binding.
+const PLUVIAM3_HOME = `<section class="network-section" id="red-especialistas" aria-labelledby="network-title">
+  <div class="network-heading"><span class="eyebrow blue">PLUVIAM / BEEHIVE</span><h2 id="network-title">Una red de especialistas, <em>visible y trazable.</em></h2><p>Estas fichas están aprobadas por el fundador para la Preview. Mostramos el estado documental real: el archivo o licencia de cada logotipo se incorpora sólo cuando existe.</p></div>
+  <div class="ally-grid">
+    <article class="ally-card"><div class="ally-mark ally-mark-image"><img src="/ally-isla-urbana.svg" alt="Isla Urbana"></div><div><span class="ally-status">APROBADO POR FUNDADOR · PREVIEW</span><h3>Isla Urbana</h3><p>Tecnología / aliado de red · CDMX y Valle de México.</p><small>Logo oficial incorporado al entorno de demostración. G0 y relación contractual en validación.</small><a href="/colaborar/">Ver red BeeHive ↗</a></div></article>
+    <article class="ally-card"><div class="ally-mark ally-mark-image"><img src="/ally-raincolecta.svg" alt="Rain Colecta"></div><div><span class="ally-status">APROBADO POR FUNDADOR · PREVIEW</span><h3>Fernando / Rain Colecta</h3><p>Aliado técnico / referidor · Guadalajara y Zapopan.</p><small>Logo oficial incorporado al entorno de demostración. Capacidad, tarifas y G0 en validación.</small><a href="/colaborar/">Abrir expediente BeeHive ↗</a></div></article>
+    <article class="ally-card"><div class="ally-mark ally-mark-image"><img src="/ally-345-ingenieria.svg" alt="345 Ingeniería"></div><div><span class="ally-status">APROBADO POR FUNDADOR · PREVIEW</span><h3>345 Ingeniería / Luis</h3><p>Ingeniería / instalación · Guadalajara y ZMG.</p><small>Logo oficial incorporado al entorno de demostración. RFQ, capacidad y contrato en validación.</small><a href="/colaborar/">Abrir expediente BeeHive ↗</a></div></article>
+  </div>
+  <p class="network-footnote">Aprobación de negocio del fundador no equivale por sí sola a licencia de marca, contrato, seguro, certificación o cobertura activa.</p>
+</section>
+<section class="pluviam3-audiences" aria-labelledby="audience-title"><div><span class="eyebrow blue">PLUVIAM 3.0 / ENTRADAS</span><h2 id="audience-title">La misma infraestructura para <em>tres formas de participar.</em></h2></div><div class="audience-grid"><a href="#experience"><strong>Hogar</strong><span>Diagnóstico, soluciones y reserva hídrica.</span></a><a href="/cotizacion.html"><strong>PyME / Industrial</strong><span>Diseño por inmueble y operación continua.</span></a><a href="/colaborar/"><strong>Arquitectos / Profesionales</strong><span>BeeHive, referidos y expedientes con permisos.</span></a><a href="/mi-proyecto.html"><strong>HI Care / Property OS</strong><span>Equipos, documentos, incidencias y mantenimiento.</span></a></div></section>`;
+// The wrapper below injects the shared Avianny UI, network cards and audience entry points while preserving the asset binding.
 async function serveAsset(request,env,path){
  const response=await env.ASSETS.fetch(request);
  const contentType=response.headers.get('content-type')||'';
  if(request.method!=='GET'||!contentType.includes('text/html'))return response;
  const html=await response.text();
  if(html.includes('/avianny.js'))return response;
- const scripts='<link rel="stylesheet" href="/avianny.css"><script src="/avianny.js" defer></script>'+(path==='/admin.html'?'<script src="/beta-admin-ui.js" defer></script>':'');
+ const scripts='<link rel="stylesheet" href="/avianny.css"><link rel="stylesheet" href="/alliances.css"><link rel="stylesheet" href="/pluviam3.css"><script src="/avianny.js" defer></script>'+(path==='/admin.html'?'<script src="/beta-admin-ui.js" defer></script>':'');
+ const home = (path==='/' || path==='/index.html') ? PLUVIAM3_HOME : '';
  const headers=new Headers(response.headers);headers.delete('Content-Length');
- return new Response(html.replace('</head>',scripts+'</head>'),{status:response.status,statusText:response.statusText,headers});
+ const body=html.replace('</head>',scripts+'</head>').replace('</main>',home+'</main>');
+ return new Response(body,{status:response.status,statusText:response.statusText,headers});
 }
 
 export default {async fetch(request,env){const path=new URL(request.url).pathname;if(path==='/_worker.js'||path==='/_worker.js.map')return new Response('Not found',{status:404});/* Cloudflare Pages canoniza contacto.html a /contacto. Nunca redirigir /contacto de regreso a .html o crearía un bucle. */const legacy={'/calculadora/':'/#experience','/calculadora':'/#experience','/nosotros/':'/','/nosotros':'/','/recorrido/':'/academia.html','/recorrido':'/academia.html','/colaborar':'/colaborar/','/store':'/store/','/admin':'/admin/'};if(Object.hasOwn(legacy,path))return Response.redirect(new URL(legacy[path],request.url).href,301);if(!path.startsWith('/api/'))return serveAsset(request,env,path);if(!originAllowed(request))return respond({error:'Origen no autorizado'},403);

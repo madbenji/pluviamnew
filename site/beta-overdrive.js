@@ -80,8 +80,19 @@ async function grantFor(request, db, env) {
   if (email) {
     try {
       const identity = await db.prepare('SELECT identity_id,role,ally_id,label,tenant_id,email FROM beta_identities WHERE lower(email)=? AND enabled=1').bind(email).first();
-      if (!identity || !ROLES.has(identity.role)) return null;
-      return { session_id: `identity:${identity.identity_id}`, role: identity.role, ally_id: identity.ally_id, label: identity.label, tenant_id: identity.tenant_id, identity_email: identity.email };
+      if (identity && ROLES.has(identity.role)) {
+        return { session_id: `identity:${identity.identity_id}`, role: identity.role, ally_id: identity.ally_id, label: identity.label, tenant_id: identity.tenant_id, identity_email: identity.email };
+      }
+      // The Access gate has already authenticated this request. Preview may
+      // bootstrap an unmapped human as a least-privilege customer, while
+      // admin/ally roles still require an explicit beta_identities row.
+      if (env?.BETA_ACCESS_DEFAULT_ROLE === 'customer') {
+        const bytes = new TextEncoder().encode(email);
+        const digest = await crypto.subtle.digest('SHA-256', bytes);
+        const scope = [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, '0')).join('').slice(0, 32);
+        return { session_id: `access:${scope}`, role: 'customer', ally_id: null, label: 'Usuario autenticado por Cloudflare Access', tenant_id: `access:${scope}`, identity_email: email };
+      }
+      return null;
     } catch (_) {
       return null;
     }
@@ -108,9 +119,23 @@ async function opportunity(db, opportunityId) {
 
 async function allies(request, env, grant) {
   const rows = grant.role === 'admin'
-    ? await env.DB_BETA.prepare('SELECT * FROM beta_allies ORDER BY id').all()
-    : await env.DB_BETA.prepare('SELECT * FROM beta_allies WHERE id=?').bind(grant.ally_id).all();
-  return json({ allies: (rows.results || []).map((row) => ({ ...row, coverage: safeJson(row.coverage_json, []), specialties: safeJson(row.specialties_json, []), publicLogo: false, publicStatus: 'NO PUBLICABLE' })) });
+    ? await env.DB_BETA.prepare('SELECT a.*,p.founder_approval_status,p.relationship_type,p.zone,p.public_summary,p.logo_asset_path,p.logo_license_status,p.logo_alt,p.cta_label FROM beta_allies a LEFT JOIN beta_ally_profiles p ON p.ally_id=a.id ORDER BY a.id').all()
+    : await env.DB_BETA.prepare('SELECT a.*,p.founder_approval_status,p.relationship_type,p.zone,p.public_summary,p.logo_asset_path,p.logo_license_status,p.logo_alt,p.cta_label FROM beta_allies a LEFT JOIN beta_ally_profiles p ON p.ally_id=a.id WHERE a.id=?').bind(grant.ally_id).all();
+  return json({ allies: (rows.results || []).map((row) => ({
+    ...row,
+    coverage: safeJson(row.coverage_json, []),
+    specialties: safeJson(row.specialties_json, []),
+    founderApprovalStatus: row.founder_approval_status || 'PENDING',
+    relationshipType: row.relationship_type || row.role,
+    zone: row.zone || row.city,
+    publicSummary: row.public_summary || 'Perfil de Preview sujeto a validación.',
+    logoAssetPath: row.logo_asset_path || null,
+    logoLicenseStatus: row.logo_license_status || 'ASSET_OR_LICENSE_PENDING',
+    logoAlt: row.logo_alt || `Logotipo de ${row.display_name} pendiente de archivo o licencia`,
+    ctaLabel: row.cta_label || 'Ver expediente beta',
+    publicLogo: !!(row.logo_asset_path && ['APPROVED', 'FOUNDER_APPROVED_PREVIEW'].includes(row.logo_license_status)),
+    publicStatus: row.founder_approval_status || 'PENDING',
+  })) });
 }
 
 async function opportunities(env, grant) {
@@ -126,12 +151,59 @@ async function catalog(env) {
   return json({ catalog: rows.results || [], paymentEnabled: false, checkoutMode: 'SIMULATION_ONLY', note: 'Catálogo compartido de Preview: precios pendientes de homologación y pedidos simulados.' });
 }
 
+async function assistantOpportunity(db, grant) {
+  const rows = await db.prepare('SELECT o.*,a.display_name AS ally_name FROM beta_opportunities o LEFT JOIN beta_allies a ON a.id=o.assigned_ally_id ORDER BY o.created_at DESC').all();
+  const visible = (rows.results || []).filter((row) => canView(grant, row));
+  if (visible[0]) return visible[0];
+  const opportunityId = id('OP-AVI'), folio = `FOLIO-AVI-${opportunityId.slice(-12).toUpperCase()}`;
+  await db.prepare('INSERT INTO beta_opportunities(id,folio,source,city,responsible_role,status,next_action,budget_estimate_cents,expected_margin_bps,consent_status,owner_scope) VALUES(?,?,?,?,?,?,?,?,?,?,?)')
+    .bind(opportunityId, folio, 'avianny_preview', 'Preview sintético', grant.role, 'NEW', 'Completar diagnóstico sintético', null, null, 'GRANTED', grant.session_id).run();
+  return opportunity(db, opportunityId);
+}
+
+async function assistantAction(db, grant, channel, message) {
+  const lower = message.toLowerCase();
+  const intent = lower.includes('mantenimiento') || /\brepar/.test(lower) || lower.includes('garant') || lower.includes('filtro') ? 'maintenance'
+    : lower.includes('expediente') || lower.includes('folio') || lower.includes('orden') || lower.includes('qa') ? 'dossier'
+      : lower.includes('cotiz') || lower.includes('precio') || lower.includes('oferta') || lower.includes('solucion') || lower.includes('solución') ? 'quote'
+        : 'catalog';
+  if (intent === 'maintenance') {
+    const serviceType = lower.includes('filtro') ? 'FILTERS' : lower.includes('tanque') || lower.includes('cisterna') ? 'TANK_CLEANING' : /\brepar/.test(lower) ? 'REPAIR' : 'MULTIBRAND';
+    const requestId = id('CARE-AVI');
+    await db.prepare("INSERT INTO beta_maintenance_requests(id,owner_scope,opportunity_id,service_type,notes) VALUES(?,?,?,?,?)").bind(requestId, grant.session_id, null, serviceType, `Solicitud iniciada por Avianny: ${message}`).run();
+    await event(db, grant, 'maintenance', requestId, 'assistant_maintenance_requested', { channel, serviceType, externalActionsEnabled: false });
+    return { intent, action: { type: 'maintenance_request', id: requestId, status: 'PENDING_REVIEW', serviceType }, message: `Abrí la solicitud HI Care ${requestId}. Quedó en revisión humana y no generó cobro ni comunicación externa.`, suggestions: ['Consultar mi expediente', 'Revisar filtros y consumibles', 'Preparar una cotización'] };
+  }
+  const items = (await db.prepare('SELECT id,name,category,description,price_cents,price_status FROM beta_catalog_items WHERE active=1 ORDER BY id').all()).results || [];
+  if (intent === 'dossier') {
+    const rows = (await db.prepare('SELECT o.id,o.folio,o.status,o.next_action,o.city,o.owner_scope,o.assigned_ally_id,a.display_name AS ally_name FROM beta_opportunities o LEFT JOIN beta_allies a ON a.id=o.assigned_ally_id ORDER BY o.created_at DESC').all()).results || [];
+    const visible = rows.filter((row) => grant.role === 'admin' || row.owner_scope === grant.session_id || (grant.role === 'ally' && row.ally_name));
+    await event(db, grant, 'assistant', id('AVI-BETA'), 'assistant_dossier_lookup', { channel, records: visible.length });
+    return { intent, action: { type: 'dossier_lookup', records: visible.slice(0, 10) }, message: visible.length ? `Encontré ${visible.length} expediente(s) visible(s) para esta identidad. No muestro registros de otros tenants.` : 'No hay un expediente visible para esta identidad; puedo crear un borrador al completar el diagnóstico.', suggestions: ['Preparar tres soluciones', 'Abrir una solicitud de mantenimiento', 'Consultar el catálogo'] };
+  }
+  if (intent === 'quote') {
+    const opportunity = await assistantOpportunity(db, grant);
+    const offers = [
+      { tier: 'SIMPLE', name: 'Simple / Esencial', scope: 'Captación y filtración inicial', kitIds: items.filter((item) => item.category === 'kit' || item.category === 'consumible').slice(0, 1).map((item) => item.id) },
+      { tier: 'MEDIA', name: 'Media / Integral', scope: 'Captación, filtración y reserva sujeta a medición', kitIds: items.filter((item) => item.category !== 'mantenimiento').slice(0, 2).map((item) => item.id) },
+      { tier: 'COMPLETA', name: 'Completa / Premium', scope: 'Diseño por inmueble, reserva y HI Care', kitIds: items.slice(0, 3).map((item) => item.id) },
+    ].map((offer) => ({ ...offer, priceCents: null, priceStatus: 'PENDING_APPROVED_COSTS', benefits: ['Revisión técnica humana', 'Sin cobro en Preview', 'No es promesa de potabilidad ni plazo'] }));
+    const draftId = id('DRAFT-AVI');
+    await db.prepare('INSERT INTO beta_quote_drafts(id,owner_scope,opportunity_id,source,offers_json) VALUES(?,?,?,?,?)').bind(draftId, grant.session_id, opportunity.id, 'avianny', JSON.stringify(offers)).run();
+    await event(db, grant, 'quote_draft', draftId, 'assistant_quote_draft_created', { channel, opportunityId: opportunity.id, priceStatus: 'PENDING_APPROVED_COSTS' });
+    return { intent, action: { type: 'quote_draft', id: draftId, opportunityId: opportunity.id, folio: opportunity.folio, offers }, message: `Preparé tres opciones para ${opportunity.folio}. Los precios quedan pendientes de costos aprobados; no inventé importes ni activé cobros.`, suggestions: ['Abrir la tienda', 'Consultar expediente', 'Solicitar mantenimiento'] };
+  }
+  const requested = lower.includes('filtro') ? items.filter((item) => item.category === 'consumible') : lower.includes('mantenimiento') ? items.filter((item) => item.category === 'mantenimiento') : items;
+  await event(db, grant, 'assistant', id('AVI-BETA'), 'assistant_catalog_lookup', { channel, records: requested.length });
+  return { intent: 'catalog', action: { type: 'catalog_lookup', items: requested.slice(0, 8) }, message: requested.length ? `Consulté ${requested.length} producto(s) del catálogo compartido. Los importes siguen pendientes de homologación en Preview.` : 'No encontré productos con ese criterio; puedo preparar un diagnóstico para afinar la recomendación.', suggestions: ['Preparar tres soluciones', 'Abrir la tienda', 'Abrir una solicitud de mantenimiento'] };
+}
+
 export async function handleBetaRequest(request, env, path) {
   if (!path.startsWith('/api/beta/')) return null;
   if (!betaReady(env)) return json({ error: 'Beta aislada no configurada. No se usa DB productiva.' }, 503);
   const db = env.DB_BETA;
   if (path === '/api/beta/status' && request.method === 'GET') {
-    return json({ enabled: true, environment: 'isolated-preview', binding: 'DB_BETA', productionBindingUsed: false, dataMode: 'synthetic-only', identityMode: 'cloudflare-access-server-side-with-closed-demo-fixtures', syntheticSessionsEnabled: env.BETA_SYNTHETIC_MODE === 'true', paymentsEnabled: false, diagnosticPaymentEnabled: false, emailsEnabled: false, aiMode: 'DEMO_NO_CREDENTIAL', logosPublic: false, noRealInvitations: true });
+    return json({ enabled: true, environment: 'isolated-preview', binding: 'DB_BETA', productionBindingUsed: false, dataMode: 'synthetic-only', identityMode: 'cloudflare-access-server-side-with-closed-demo-fixtures', syntheticSessionsEnabled: env.BETA_SYNTHETIC_MODE === 'true', unmappedAccessRole: env.BETA_ACCESS_DEFAULT_ROLE || null, paymentsEnabled: false, diagnosticPaymentEnabled: false, emailsEnabled: false, aiMode: 'DEMO_NO_CREDENTIAL', logosPublic: false, allyCardsVisible: true, noRealInvitations: true });
   }
   const grant = await grantFor(request, db, env);
   if (!grant) return json({ error: 'Identidad no autorizada para esta Preview. Inicia sesión mediante Cloudflare Access o usa una fixture sintética sólo en el demo cerrado.' }, 401);
@@ -195,17 +267,9 @@ export async function handleBetaRequest(request, env, path) {
     const channel = ['web', 'app', 'admin'].includes(text(value.channel, 12)) ? text(value.channel, 12) : 'web';
     const message = text(value.message, 500);
     if (message.length < 2) return json({ error: 'Escribe una pregunta breve.' }, 422);
-    const lower = message.toLowerCase();
-    const intent = lower.includes('mantenimiento') || lower.includes('filtro') ? 'maintenance' : lower.includes('pedido') || lower.includes('carrito') ? 'order' : lower.includes('cotiz') || lower.includes('precio') ? 'quote' : 'diagnosis';
-    const suggestions = intent === 'maintenance'
-      ? ['Solicitar HI Care multimarca', 'Revisar filtros y consumibles', 'Consultar una garantía']
-      : intent === 'order'
-        ? ['Abrir el catálogo compartido', 'Guardar una bolsa simulada', 'Consultar el expediente']
-        : intent === 'quote'
-          ? ['Completar diagnóstico de cinco preguntas', 'Preparar tres escenarios', 'Solicitar revisión humana']
-          : ['Iniciar diagnóstico de inmueble', 'Explorar captación y reserva', 'Abrir Mi proyecto'];
-    await db.prepare('INSERT INTO beta_assistant_events(id,actor_scope,channel,intent,detail_json) VALUES(?,?,?,?,?)').bind(id('AVI-BETA'), grant.session_id, channel, intent, JSON.stringify({ messageLength: message.length, mode: 'DEMO_NO_CREDENTIAL' })).run();
-    return json({ ok: true, mode: 'DEMO_NO_CREDENTIAL', label: 'Asistente en modo demostración', intent, suggestions, message: 'Puedo orientarte dentro de la Preview y preparar el siguiente paso. No tengo IA activa ni puedo enviar mensajes, cobrar o confirmar obras.', approvalRequired: true, externalActionsEnabled: false });
+    const action = await assistantAction(db, grant, channel, message);
+    await db.prepare('INSERT INTO beta_assistant_events(id,actor_scope,channel,intent,detail_json) VALUES(?,?,?,?,?)').bind(id('AVI-BETA'), grant.session_id, channel, action.intent, JSON.stringify({ messageLength: message.length, mode: 'DEMO_NO_CREDENTIAL', executionMode: 'DB_BETA_TOOLS', action: action.action?.type || null })).run();
+    return json({ ok: true, mode: 'DEMO_NO_CREDENTIAL', executionMode: 'DB_BETA_TOOLS', label: 'Avianny · asistente de pruebas', ...action, aiProvider: 'OFF', approvalRequired: true, externalActionsEnabled: false });
   }
 
   if (path === '/api/beta/opportunities') {
