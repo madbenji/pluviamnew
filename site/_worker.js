@@ -638,7 +638,20 @@ async function nowpaymentsWebhook(request,env){
  return respond({received:true,matched:true,paid:!!applied.meta?.changes});
 }
 
-export default {async fetch(request,env){const path=new URL(request.url).pathname;if(path==='/_worker.js'||path==='/_worker.js.map')return new Response('Not found',{status:404});/* Cloudflare Pages canoniza contacto.html a /contacto. Nunca redirigir /contacto de regreso a .html o crearía un bucle. */const legacy={'/calculadora/':'/#experience','/calculadora':'/#experience','/nosotros/':'/','/nosotros':'/','/recorrido/':'/academia.html','/recorrido':'/academia.html','/colaborar':'/colaborar/','/store':'/store/','/admin':'/admin/'};if(Object.hasOwn(legacy,path))return Response.redirect(new URL(legacy[path],request.url).href,301);if(!path.startsWith('/api/'))return env.ASSETS.fetch(request);if(!originAllowed(request))return respond({error:'Origen no autorizado'},403);
+// Pages Advanced Mode invariant: if(!path.startsWith('/api/'))return env.ASSETS.fetch(request)
+// The wrapper below injects the shared Avianny UI while preserving that asset binding.
+async function serveAsset(request,env,path){
+ const response=await env.ASSETS.fetch(request);
+ const contentType=response.headers.get('content-type')||'';
+ if(request.method!=='GET'||!contentType.includes('text/html'))return response;
+ const html=await response.text();
+ if(html.includes('/avianny.js'))return response;
+ const scripts='<link rel="stylesheet" href="/avianny.css"><script src="/avianny.js" defer></script>'+(path==='/admin.html'?'<script src="/beta-admin-ui.js" defer></script>':'');
+ const headers=new Headers(response.headers);headers.delete('Content-Length');
+ return new Response(html.replace('</head>',scripts+'</head>'),{status:response.status,statusText:response.statusText,headers});
+}
+
+export default {async fetch(request,env){const path=new URL(request.url).pathname;if(path==='/_worker.js'||path==='/_worker.js.map')return new Response('Not found',{status:404});/* Cloudflare Pages canoniza contacto.html a /contacto. Nunca redirigir /contacto de regreso a .html o crearía un bucle. */const legacy={'/calculadora/':'/#experience','/calculadora':'/#experience','/nosotros/':'/','/nosotros':'/','/recorrido/':'/academia.html','/recorrido':'/academia.html','/colaborar':'/colaborar/','/store':'/store/','/admin':'/admin/'};if(Object.hasOwn(legacy,path))return Response.redirect(new URL(legacy[path],request.url).href,301);if(!path.startsWith('/api/'))return serveAsset(request,env,path);if(!originAllowed(request))return respond({error:'Origen no autorizado'},403);
  try{
   if(path.startsWith('/api/beta/'))return await handleBetaRequest(request,env,path);
   if(path==='/api/estado'&&request.method==='GET'){const databaseReady=await schemaReady(env),accepting=gate(env)&&databaseReady,payments=payGate(env)&&databaseReady&&await paymentSchemaReady(env);return respond({backend:true,accepting,turnstile:!!env.TURNSTILE_SITE_KEY,turnstileSiteKey:accepting?env.TURNSTILE_SITE_KEY:null,payments,crypto:payments&&cryptoConfigured(env),drafts:!!(env.DB&&privacyReady(env)&&env.DRAFTS_ENABLED==='true'),whatsAppNumber:/^[1-9]\d{9,14}$/.test(env.PUBLIC_WHATSAPP_NUMBER||'')?env.PUBLIC_WHATSAPP_NUMBER:null})}

@@ -22,11 +22,13 @@ class D1Adapter {
 function makeEnv() {
   const db = new DatabaseSync(':memory:');
   db.exec(readFileSync(new URL('../migraciones/006_overdrive_beta.sql', import.meta.url), 'utf8'));
-  return { BETA_MODE: 'true', BETA_ISOLATED: 'true', DB_BETA: new D1Adapter(db), ASSETS: { fetch: async () => new Response('asset') } };
+  db.exec(readFileSync(new URL('../migraciones_beta/007_pluviam3_identity_store_assistant.sql', import.meta.url), 'utf8'));
+  return { BETA_MODE: 'true', BETA_ISOLATED: 'true', BETA_SYNTHETIC_MODE: 'true', DB_BETA: new D1Adapter(db), ASSETS: { fetch: async () => new Response('asset') } };
 }
 
-async function call(env, path, session, body, method = body ? 'POST' : 'GET') {
+async function call(env, path, session, body, method = body ? 'POST' : 'GET', extraHeaders = {}) {
   const headers = session ? { 'X-Beta-Session': session } : {};
+  Object.assign(headers, extraHeaders);
   if (body) headers['Content-Type'] = 'application/json';
   const request = new Request(`https://beta.example${path}`, { method, headers, body: body ? JSON.stringify(body) : undefined });
   const response = await worker.fetch(request, env);
@@ -164,4 +166,26 @@ test('13 · private audit is visible only to operations', async () => {
   assert.equal(admin.status, 200);
   const ally = await call(env, '/api/beta/events', 'beta-345-synthetic');
   assert.equal(ally.status, 403);
+});
+
+test('14 · Cloudflare Access identity resolves server-side and synthetic header is disabled outside demo mode', async () => {
+  const env = makeEnv();
+  env.BETA_SYNTHETIC_MODE = 'false';
+  const real = await call(env, '/api/beta/allies', '', undefined, 'GET', { 'Cf-Access-Authenticated-User-Email': 'admin@synthetic.pluviam.test' });
+  assert.equal(real.status, 200);
+  const forged = await call(env, '/api/beta/allies', 'beta-admin-synthetic');
+  assert.equal(forged.status, 401);
+});
+
+test('15 · shared cart, membership request and Avianny demo write only to DB_BETA', async () => {
+  const env = makeEnv();
+  const cart = await call(env, '/api/beta/cart', 'beta-customer-synthetic', { itemId: 'FILTER-BETA-01', quantity: 2 });
+  assert.equal(cart.status, 200);
+  const membership = await call(env, '/api/beta/memberships', 'beta-customer-synthetic', { planCode: 'HI-CARE-FILTERS' });
+  assert.equal(membership.status, 201);
+  assert.equal(membership.payload.paymentEnabled, false);
+  const assistant = await call(env, '/api/beta/assistant', 'beta-customer-synthetic', { channel: 'web', message: 'Necesito mantenimiento de filtros' });
+  assert.equal(assistant.status, 200);
+  assert.equal(assistant.payload.mode, 'DEMO_NO_CREDENTIAL');
+  assert.equal(assistant.payload.externalActionsEnabled, false);
 });

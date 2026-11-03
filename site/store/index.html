@@ -1,1 +1,28 @@
-<!doctype html><html lang="es-MX"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Store · PLUVIAM Beta</title><link rel="stylesheet" href="/beta.css"><script src="/beta.js" defer></script></head><body data-beta-page="store"><div class="shell"><header class="nav"><a class="brand" href="/">PLUVIAM · BETA AISLADA</a><nav class="navlinks"><a href="/colaborar/">Colaborar</a><a href="/colaborar/mi-beehive/">Mi BeeHive</a><a href="/admin/">Admin beta</a></nav></header><main><section class="hero"><div class="eyebrow">STORE + HI CARE · SIMULACIÓN</div><h1>Catálogo compartido, cobro apagado.</h1><p>Productos, consumibles y mantenimiento consultan el mismo backend beta. Los precios están ocultos hasta homologar costos y cada pedido queda trazado como simulación.</p><div class="controls" data-beta-session></div><p class="status" data-status>Selecciona un rol.</p></section><section id="catalog" class="grid"></section><section class="notice">No hay Stripe, Mercado Pago, MSI ni transferencia en esta beta. Crear un pedido no genera cargo ni compromiso de suministro.</section></main><footer class="footer">HI Care beta: filtros, limpieza de tanques, reparaciones, sustituciones y mantenimiento multimarca.</footer></div></body></html>
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="description" content="Tienda PLUVIAM integrada con diagnóstico, expediente, mantenimiento y recurrencia en Preview.">
+  <title>Tienda · PLUVIAM</title>
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/identity-v46-r2.css">
+  <link rel="stylesheet" href="/store.css"><script src="/store.js" defer></script>
+</head>
+<body class="store-integrated">
+  <header class="store-nav"><a class="store-brand" href="/"><img src="/pluviam-gotas.png" alt="">PLUVIAM</a><nav><a href="/">Inicio</a><a href="/cotizacion.html">Diagnóstico</a><a href="/mi-proyecto.html">Mi proyecto</a><a href="/colaborar/">BeeHive</a><a href="/admin.html">Operaciones</a></nav></header>
+  <main class="store-main">
+    <section class="store-hero"><div class="eyebrow">PLUVIAM · STORE + HI CARE · BETA</div><h1>Tu sistema, sus consumibles<br><em>y su continuidad.</em></h1><p>Un solo catálogo para kits, filtros, almacenamiento y mantenimiento. En Preview, los precios se muestran sólo cuando están homologados y todo pedido es una simulación sin cobro.</p><div class="store-access" data-beta-session></div><p class="store-status" data-store-status>Comprobando catálogo compartido…</p></section>
+    <section class="store-layout">
+      <article class="store-panel store-catalog"><div class="panel-kicker">01 · CATÁLOGO COMPARTIDO</div><div class="panel-heading"><div><h2>Soluciones y consumibles</h2><p>La recomendación del diagnóstico y la bolsa usan este mismo origen.</p></div><span class="demo-tag">PREVIEW · SIN COBRO</span></div><div id="store-catalog-grid" class="store-catalog-grid"><div class="store-empty">Selecciona una identidad de Preview para consultar el catálogo.</div></div></article>
+      <aside class="store-panel store-cart"><div class="panel-kicker">02 · BOLSA / EXPEDIENTE</div><h2>Tu selección</h2><p class="store-muted">Guarda una selección sintética para continuar en diagnóstico o cotización.</p><div id="store-cart-items" class="store-cart-items"><div class="store-empty">Tu bolsa está vacía.</div></div><div class="store-cart-total"><span>Importe</span><strong id="store-cart-total">Pendiente de homologación</strong></div><button id="store-order" class="store-button" type="button" disabled>Guardar pedido simulado</button><p class="store-note">No abre checkout, no crea cargo y no reserva inventario real.</p></aside>
+    </section>
+    <section class="store-layout store-lower">
+      <article class="store-panel"><div class="panel-kicker">03 · MEMBRESÍAS Y RECURRENCIA</div><h2>HI Care para mantener el sistema</h2><p class="store-muted">Solicita un plan; la disponibilidad, precio, calendario y cancelación requieren revisión humana.</p><form id="membership-form" class="store-form"><label>Plan<select id="membership-plan" required><option value="">Selecciona un plan…</option></select></label><button class="store-button" type="submit">Solicitar en Preview</button></form><div id="membership-list" class="store-list"></div></article>
+      <article class="store-panel"><div class="panel-kicker">04 · HI CARE</div><h2>Solicitud de mantenimiento</h2><p class="store-muted">Filtros, tanques, bombas, reparación, sustitución y multimarca.</p><form id="care-form" class="store-form"><label>Servicio<select name="serviceType" required><option value="FILTERS">Filtros y consumibles</option><option value="TANK_CLEANING">Limpieza de tanque/cisterna</option><option value="REPAIR">Revisión o reparación</option><option value="REPLACEMENT">Sustitución</option><option value="MULTIBRAND">Multimarca · Stormsaver u otro</option></select></label><label>Nota sintética<textarea name="notes" rows="3" minlength="4" maxlength="500" required placeholder="Describe el equipo o la necesidad…"></textarea></label><button class="store-button" type="submit">Crear solicitud sin cobro</button></form><div id="care-result" class="store-result" aria-live="polite"></div></article>
+    </section>
+    <section class="store-safety"><strong>Controles de Preview</strong><span>Pagos OFF</span><span>Correo/WhatsApp OFF</span><span>IA real OFF</span><span>DB_BETA aislada</span><span>Catálogo sin precios inventados</span></section>
+  </main>
+  <footer class="store-footer"><span>PLUVIAM · WATER INFRASTRUCTURE</span><span><a href="/privacidad.html">Privacidad</a> · <a href="/contacto.html">Contacto</a> · Preview privada</span></footer>
+</body>
+</html>

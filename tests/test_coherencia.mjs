@@ -1,5 +1,5 @@
-import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import vm from 'node:vm';
-const site=path.resolve(new URL('../site/',import.meta.url).pathname),read=f=>fs.readFileSync(path.join(site,f),'utf8');
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import { fileURLToPath } from 'node:url';
+const site=fileURLToPath(new URL('../site/',import.meta.url)),read=f=>fs.readFileSync(path.join(site,f),'utf8');
 const names=['index','cotizacion','academia','contacto','modelo-3d','mi-proyecto','privacidad','404'];let assertions=0;function ck(v,msg){assert.ok(v,msg);assertions++}
 for(const name of names){const content=read(name+'.html');ck(/<html[^>]+lang="es/.test(content),`${name} language`);ck(content.includes('coherencia-site.css'),`${name} common styles`);ck(/<title>/.test(content),`${name} title`);for(const m of content.matchAll(/\bhref="(\/(?:[^"#]*))(?:#[^"]*)?"/g)){let p=m[1].split('?')[0];if(p==='/'||p.startsWith('/api/'))continue;const file=path.join(site,p.slice(1));ck(fs.existsSync(file),`${name} link ${p}`)}}
 for(const n of ['cotizacion','contacto','modelo-3d','mi-proyecto','privacidad']){const text=read(n+'.html');for(const link of ['/cotizacion.html','/academia.html','/mi-proyecto.html','/contacto.html'])ck(text.includes(`href="${link}"`),`${n} links to ${link}`);ck(text.includes('pluviam-coherence-footer'),`${n} common footer`)}
@@ -9,7 +9,7 @@ const academy=read('academia.html');ck(academy.includes('Arquitectos y despachos
 const home=read('index.html');ck(home.includes('href="#experience">Ir al diagnóstico'),'skip points to test');ck(home.includes('id="experience"'),'diagnostic anchor exists');ck(read('modelo-3d.html').includes('href="/#experience">← Volver al diagnóstico'),'3D return anchor accurate');
 const w=read('_worker.js');ck(!w.includes("'/contacto':'/contacto.html'"),'no contact legacy redirect loop');ck(!w.includes("'/contacto/':'/contacto.html'"),'no alternate contact redirect loop');ck(w.includes('if(!path.startsWith(\'/api/\'))return env.ASSETS.fetch(request)'),'assets still served by Pages');
 // Verify actual route behavior by importing Worker as a module and mocking the Pages assets binding.
-const worker=(await import('file://'+path.join(site,'_worker.js'))).default;
+const worker=(await import(new URL('_worker.js',new URL('../site/',import.meta.url)).href)).default;
 const urls=[];let count=0;const env={ASSETS:{fetch(req){urls.push(new URL(req.url).pathname);count++;return new Response('asset:'+new URL(req.url).pathname,{status:200})}}};
 for(const u of ['/contacto','/contacto.html','/academia','/cotizacion','/mi-proyecto']){
  const resp=await worker.fetch(new Request('https://pluviam.example'+u),env);ck(resp.status===200,`${u} HTTP success`);ck((await resp.text())==='asset:'+u,`${u} not re-redirected`);

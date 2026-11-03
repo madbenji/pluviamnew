@@ -73,11 +73,24 @@ async function bodyJson(request, max = 12000) {
   return value;
 }
 
-async function grantFor(request, db) {
-  const header = request.headers.get('X-Beta-Session') || request.headers.get('Authorization')?.replace(/^Bearer\s+/i, '') || '';
-  if (!header || header.length > 120) return null;
-  const row = await db.prepare('SELECT session_id,role,ally_id,label FROM beta_access_grants WHERE session_id=? AND enabled=1').bind(header).first();
-  return row && ROLES.has(row.role) ? row : null;
+async function grantFor(request, db, env) {
+  // Real Preview identity comes from Cloudflare Access and is resolved server-side.
+  // The synthetic header is retained only for the explicitly closed beta demo.
+  const email = text(request.headers.get('Cf-Access-Authenticated-User-Email') || request.headers.get('cf-access-authenticated-user-email'), 180).toLowerCase();
+  if (email) {
+    try {
+      const identity = await db.prepare('SELECT identity_id,role,ally_id,label,tenant_id,email FROM beta_identities WHERE lower(email)=? AND enabled=1').bind(email).first();
+      if (!identity || !ROLES.has(identity.role)) return null;
+      return { session_id: `identity:${identity.identity_id}`, role: identity.role, ally_id: identity.ally_id, label: identity.label, tenant_id: identity.tenant_id, identity_email: identity.email };
+    } catch (_) {
+      return null;
+    }
+  }
+  if (env?.BETA_SYNTHETIC_MODE !== 'true') return null;
+  const synthetic = text(request.headers.get('X-Beta-Session') || request.headers.get('Authorization')?.replace(/^Bearer\s+/i, ''), 120);
+  if (!synthetic) return null;
+  const row = await db.prepare('SELECT session_id,role,ally_id,label FROM beta_access_grants WHERE session_id=? AND enabled=1').bind(synthetic).first();
+  return row && ROLES.has(row.role) ? { ...row, tenant_id: `synthetic:${synthetic}` } : null;
 }
 
 function canView(grant, opportunity) {
@@ -109,8 +122,8 @@ async function opportunities(env, grant) {
 }
 
 async function catalog(env) {
-  const rows = await env.DB_BETA.prepare('SELECT id,name,category,description,price_status FROM beta_catalog_items WHERE active=1 ORDER BY id').all();
-  return json({ catalog: rows.results || [], paymentEnabled: false, note: 'Catálogo de beta: precios no publicados y pedidos simulados.' });
+  const rows = await env.DB_BETA.prepare('SELECT id,name,category,description,price_cents,price_status FROM beta_catalog_items WHERE active=1 ORDER BY id').all();
+  return json({ catalog: rows.results || [], paymentEnabled: false, checkoutMode: 'SIMULATION_ONLY', note: 'Catálogo compartido de Preview: precios pendientes de homologación y pedidos simulados.' });
 }
 
 export async function handleBetaRequest(request, env, path) {
@@ -118,10 +131,10 @@ export async function handleBetaRequest(request, env, path) {
   if (!betaReady(env)) return json({ error: 'Beta aislada no configurada. No se usa DB productiva.' }, 503);
   const db = env.DB_BETA;
   if (path === '/api/beta/status' && request.method === 'GET') {
-    return json({ enabled: true, environment: 'isolated-preview', binding: 'DB_BETA', productionBindingUsed: false, dataMode: 'synthetic-only', paymentsEnabled: false, diagnosticPaymentEnabled: false, emailsEnabled: false, aiMode: 'MOCK', logosPublic: false, noRealInvitations: true });
+    return json({ enabled: true, environment: 'isolated-preview', binding: 'DB_BETA', productionBindingUsed: false, dataMode: 'synthetic-only', identityMode: 'cloudflare-access-server-side-with-closed-demo-fixtures', syntheticSessionsEnabled: env.BETA_SYNTHETIC_MODE === 'true', paymentsEnabled: false, diagnosticPaymentEnabled: false, emailsEnabled: false, aiMode: 'DEMO_NO_CREDENTIAL', logosPublic: false, noRealInvitations: true });
   }
-  const grant = await grantFor(request, db);
-  if (!grant) return json({ error: 'Sesión beta sintética requerida.' }, 401);
+  const grant = await grantFor(request, db, env);
+  if (!grant) return json({ error: 'Identidad no autorizada para esta Preview. Inicia sesión mediante Cloudflare Access o usa una fixture sintética sólo en el demo cerrado.' }, 401);
   if (path === '/api/beta/allies' && request.method === 'GET') return allies(request, env, grant);
   if (path === '/api/beta/catalog' && request.method === 'GET') return catalog(env);
   if (path === '/api/beta/opportunities' && request.method === 'GET') return opportunities(env, grant);
@@ -138,10 +151,62 @@ export async function handleBetaRequest(request, env, path) {
     const rows = grant.role === 'admin' ? await db.prepare('SELECT * FROM beta_maintenance_requests ORDER BY created_at DESC').all() : await db.prepare('SELECT * FROM beta_maintenance_requests WHERE owner_scope=? ORDER BY created_at DESC').bind(grant.session_id).all();
     return json({ requests: rows.results || [], paymentsEnabled: false });
   }
+  if (path === '/api/beta/cart' && request.method === 'GET') {
+    if (!['admin', 'customer'].includes(grant.role)) return json({ error: 'Sólo cliente u operaciones puede consultar la bolsa.' }, 403);
+    const rows = await db.prepare('SELECT c.owner_scope,c.item_id,c.quantity,c.updated_at,i.name,i.category,i.description,i.price_cents,i.price_status FROM beta_cart_items c JOIN beta_catalog_items i ON i.id=c.item_id WHERE c.owner_scope=? ORDER BY c.updated_at DESC').bind(grant.session_id).all();
+    return json({ items: rows.results || [], paymentEnabled: false, checkoutMode: 'SIMULATION_ONLY' });
+  }
+  if (path === '/api/beta/memberships' && request.method === 'GET') {
+    const rows = await db.prepare('SELECT m.*,p.name,p.description,p.price_status FROM beta_memberships m JOIN beta_membership_plans p ON p.plan_code=m.plan_code WHERE m.owner_scope=? ORDER BY m.created_at DESC').bind(grant.session_id).all();
+    return json({ memberships: rows.results || [], paymentEnabled: false });
+  }
+  if (path === '/api/beta/membership-plans' && request.method === 'GET') {
+    const rows = await db.prepare('SELECT plan_code,name,description,price_status FROM beta_membership_plans WHERE active=1 ORDER BY plan_code').all();
+    return json({ plans: rows.results || [], paymentEnabled: false });
+  }
 
   if (request.method !== 'POST') return json({ error: 'Método no permitido.' }, 405);
   let value;
   try { value = await bodyJson(request); } catch (error) { return json({ error: error.message }, 400); }
+
+  if (path === '/api/beta/cart') {
+    if (!['admin', 'customer'].includes(grant.role)) return json({ error: 'Sólo cliente u operaciones puede modificar la bolsa.' }, 403);
+    const itemId = text(value.itemId, 80), quantity = value.quantity;
+    if (!integer(quantity, 1, 20)) return json({ error: 'Cantidad inválida.' }, 422);
+    const item = await db.prepare('SELECT id FROM beta_catalog_items WHERE id=? AND active=1').bind(itemId).first();
+    if (!item) return json({ error: 'Producto no disponible en el catálogo beta.' }, 404);
+    await db.prepare('INSERT INTO beta_cart_items(owner_scope,item_id,quantity) VALUES(?,?,?) ON CONFLICT(owner_scope,item_id) DO UPDATE SET quantity=excluded.quantity,updated_at=CURRENT_TIMESTAMP').bind(grant.session_id, itemId, quantity).run();
+    await event(db, grant, 'cart', itemId, 'cart_item_saved', { quantity, paymentEnabled: false });
+    return json({ ok: true, itemId, quantity, paymentEnabled: false, checkoutMode: 'SIMULATION_ONLY' });
+  }
+
+  if (path === '/api/beta/memberships') {
+    if (!['admin', 'customer'].includes(grant.role)) return json({ error: 'Rol no autorizado para solicitar una membresía.' }, 403);
+    const planCode = text(value.planCode, 60);
+    const plan = await db.prepare('SELECT plan_code FROM beta_membership_plans WHERE plan_code=? AND active=1').bind(planCode).first();
+    if (!plan) return json({ error: 'Plan de membresía no disponible.' }, 404);
+    const membershipId = id('MEM-BETA');
+    await db.prepare("INSERT INTO beta_memberships(id,owner_scope,plan_code,status,payment_enabled) VALUES(?,?,?,'REQUESTED',0) ON CONFLICT(owner_scope,plan_code) DO UPDATE SET status='REQUESTED',updated_at=CURRENT_TIMESTAMP,payment_enabled=0").bind(membershipId, grant.session_id, planCode).run();
+    await event(db, grant, 'membership', planCode, 'membership_requested', { paymentEnabled: false });
+    return json({ ok: true, planCode, status: 'REQUESTED', paymentEnabled: false, externalActivation: 'PENDING_HUMAN_GO' }, 201);
+  }
+
+  if (path === '/api/beta/assistant') {
+    const channel = ['web', 'app', 'admin'].includes(text(value.channel, 12)) ? text(value.channel, 12) : 'web';
+    const message = text(value.message, 500);
+    if (message.length < 2) return json({ error: 'Escribe una pregunta breve.' }, 422);
+    const lower = message.toLowerCase();
+    const intent = lower.includes('mantenimiento') || lower.includes('filtro') ? 'maintenance' : lower.includes('pedido') || lower.includes('carrito') ? 'order' : lower.includes('cotiz') || lower.includes('precio') ? 'quote' : 'diagnosis';
+    const suggestions = intent === 'maintenance'
+      ? ['Solicitar HI Care multimarca', 'Revisar filtros y consumibles', 'Consultar una garantía']
+      : intent === 'order'
+        ? ['Abrir el catálogo compartido', 'Guardar una bolsa simulada', 'Consultar el expediente']
+        : intent === 'quote'
+          ? ['Completar diagnóstico de cinco preguntas', 'Preparar tres escenarios', 'Solicitar revisión humana']
+          : ['Iniciar diagnóstico de inmueble', 'Explorar captación y reserva', 'Abrir Mi proyecto'];
+    await db.prepare('INSERT INTO beta_assistant_events(id,actor_scope,channel,intent,detail_json) VALUES(?,?,?,?,?)').bind(id('AVI-BETA'), grant.session_id, channel, intent, JSON.stringify({ messageLength: message.length, mode: 'DEMO_NO_CREDENTIAL' })).run();
+    return json({ ok: true, mode: 'DEMO_NO_CREDENTIAL', label: 'Asistente en modo demostración', intent, suggestions, message: 'Puedo orientarte dentro de la Preview y preparar el siguiente paso. No tengo IA activa ni puedo enviar mensajes, cobrar o confirmar obras.', approvalRequired: true, externalActionsEnabled: false });
+  }
 
   if (path === '/api/beta/opportunities') {
     if (!['admin', 'architect', 'customer'].includes(grant.role)) return json({ error: 'Rol no autorizado.' }, 403);
