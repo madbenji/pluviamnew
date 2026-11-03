@@ -2,7 +2,7 @@
 
 ## Resultado local
 
-La suite `tests/test_beta_overdrive.mjs` ejecuta 13 pruebas end-to-end contra SQLite en memoria usando exclusivamente el esquema `006_overdrive_beta.sql` y datos sintéticos. `tests/test_beta_static.mjs` añade dos verificaciones de rutas y assets.
+La suite `tests/test_beta_overdrive.mjs` ejecuta 13 pruebas end-to-end contra SQLite en memoria usando exclusivamente el esquema `migraciones_beta/006_overdrive_beta.sql` y datos sintéticos. `tests/test_beta_static.mjs` añade dos verificaciones de rutas y assets.
 
 Casos cubiertos: estado de entorno aislado; rechazo sin sesión; dos aliados; consentimiento; diagnóstico; asignación; aislamiento Fernando/345; cotización `NO_GO` por costos no verificados; economía `INTEGRADOR`; bloqueo de orden sin aprobación; flujo aprobado → orden → QA; pedido Store sin cobro; HI Care sin cobro; auditoría sólo para operaciones.
 
@@ -25,5 +25,5 @@ El paquete heredado incluye suites históricas adicionales. Varias construyen ru
 
 ## Dictamen
 
-**NO-GO para despliegue comercial o cobro. GO técnico condicionado para subir a Preview aislado**, después de crear `DB_BETA`, verificar el binding y ejecutar la migración en esa base. El siguiente cambio de mayor impacto es conectar el Preview a Cloudflare con un binding D1 beta y repetir los 13 casos contra D1 real, agregando verificación visual móvil/escritorio.
+**NO-GO para despliegue comercial o cobro. GO técnico condicionado para subir a Preview aislado**, después de crear `DB_BETA`, verificar el binding y ejecutar únicamente `migraciones_beta/006_overdrive_beta.sql` en esa base. El siguiente cambio de mayor impacto es conectar el Preview a Cloudflare con un binding D1 beta y repetir los 13 casos contra D1 real, agregando verificación visual móvil/escritorio.
 

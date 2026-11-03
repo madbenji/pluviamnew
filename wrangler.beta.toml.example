@@ -8,8 +8,9 @@ BETA_ISOLATED = "true"
 
 [[d1_databases]]
 binding = "DB_BETA"
-database_name = "pluviam-beta-staging"
+database_name = "pluviam-overdrive-beta-db"
 database_id = "REPLACE_WITH_BETA_DATABASE_ID"
-migrations_dir = "./migraciones"
+# Beta-only directory. Do not point this at ./migraciones: 001-005 are production-schema migrations.
+migrations_dir = "./migraciones_beta"
 
 # Deliberadamente no hay binding DB ni secretos de producción aquí.

@@ -9,7 +9,7 @@ Paquete de construcción sobre la candidata V52.1 de Cloudflare Pages. No es pro
 - `/admin/`: tablero beta privado para oportunidades y auditoría.
 - `/store/`: catálogo compartido con pedidos `SIMULATED_NO_CHARGE`.
 - `site/beta-overdrive.js`: API tipada para oportunidades, diagnóstico, aliados, cotizaciones, órdenes, QA, catálogo y HI Care.
-- `migraciones/006_overdrive_beta.sql`: esquema idempotente para `DB_BETA`, con dos perfiles y catálogo sintéticos.
+- `migraciones_beta/006_overdrive_beta.sql`: esquema idempotente y autocontenido para `DB_BETA`, con dos perfiles y catálogo sintéticos. Las migraciones 001–005 son productivas y no forman parte del orden beta.
 
 ## Seguridad de beta
 
@@ -25,7 +25,7 @@ La cotización separa `REFERIDOR` e `INTEGRADOR`, convierte el PVP con IVA a ing
 
 1. Crear una D1 nueva de Preview y respaldar el entorno antes de cualquier migración.
 2. Configurar sólo `DB_BETA` con `wrangler.beta.toml.example`; no copiar `DB` ni secretos productivos.
-3. Ejecutar `migraciones/006_overdrive_beta.sql` en esa D1.
+3. Ejecutar sólo `migraciones_beta/006_overdrive_beta.sql` en esa D1. No ejecutar 001–005 en `DB_BETA`.
 4. Publicar el contenido de `site/` en un Pages Preview aislado.
 5. Probar con las sesiones sintéticas visibles en la UI; no invitar contactos reales.
 6. Mantener pagos, correo, WhatsApp y llamadas desactivados.
