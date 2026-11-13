@@ -1,0 +1,160 @@
+[
+  {
+    "id": "space",
+    "question": "¿En qué espacio?",
+    "options": [
+      {
+        "label": "Casa",
+        "value": "res"
+      },
+      {
+        "label": "Cocina / departamento",
+        "value": "kitchen"
+      },
+      {
+        "label": "Condominio / comercio",
+        "value": "business"
+      },
+      {
+        "label": "Industria / desarrollo",
+        "value": "industry"
+      }
+    ]
+  },
+  {
+    "id": "goal",
+    "question": "¿Qué quieres resolver?",
+    "options": [
+      {
+        "label": "Filtrar en mi cocina",
+        "value": "cocina"
+      },
+      {
+        "label": "Tener reserva",
+        "value": "almacenamiento"
+      },
+      {
+        "label": "Aprovechar la lluvia",
+        "value": "captacion"
+      },
+      {
+        "label": "Accesorios del hogar",
+        "value": "hogar"
+      }
+    ]
+  },
+  {
+    "id": "storage",
+    "question": "¿Tienes almacenamiento?",
+    "options": [
+      {
+        "label": "Sí, tinaco o cisterna",
+        "value": "has"
+      },
+      {
+        "label": "No",
+        "value": "none"
+      },
+      {
+        "label": "No sé",
+        "value": "unknown"
+      },
+      {
+        "label": "Quiero renovarlo",
+        "value": "replace"
+      }
+    ]
+  },
+  {
+    "id": "use",
+    "question": "¿Para qué usarías el agua?",
+    "options": [
+      {
+        "label": "Beber / cocinar",
+        "value": "drink"
+      },
+      {
+        "label": "Riego / sanitarios",
+        "value": "nonpotable"
+      },
+      {
+        "label": "Reserva y distribución",
+        "value": "storage"
+      },
+      {
+        "label": "Usos mixtos / profesionales",
+        "value": "project"
+      }
+    ]
+  },
+  {
+    "id": "stage",
+    "question": "¿En qué etapa estás?",
+    "options": [
+      {
+        "label": "Exploración",
+        "value": "explore"
+      },
+      {
+        "label": "Comparación",
+        "value": "compare"
+      },
+      {
+        "label": "Evaluación técnica",
+        "value": "evaluate"
+      },
+      {
+        "label": "Listo para decidir",
+        "value": "ready"
+      }
+    ]
+  },
+  {
+    "id": "waterSource",
+    "question": "¿De dónde vendría el agua?",
+    "options": [
+      {
+        "label": "Red municipal",
+        "value": "municipal"
+      },
+      {
+        "label": "Lluvia",
+        "value": "rain"
+      },
+      {
+        "label": "Pozo",
+        "value": "well"
+      },
+      {
+        "label": "Varias fuentes / no lo sé",
+        "value": "unknown"
+      }
+    ]
+  },
+  {
+    "id": "roofArea",
+    "question": "¿Qué superficie de techo tienes?",
+    "options": [
+      {
+        "label": "Menos de 60 m²",
+        "value": "lt60"
+      },
+      {
+        "label": "60 a 150 m²",
+        "value": "60-150"
+      },
+      {
+        "label": "150 a 300 m²",
+        "value": "150-300"
+      },
+      {
+        "label": "Más de 300 m²",
+        "value": "gt300"
+      },
+      {
+        "label": "No la sé",
+        "value": "unknown"
+      }
+    ]
+  }
+]

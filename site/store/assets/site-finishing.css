@@ -1,0 +1,10 @@
+
+/* Pluviam commercial finishing, additive only */
+.pl-price-label{font-size:13px!important;color:#0b6470!important;font-weight:800!important}
+.pl-guide-summary{margin:18px 0 20px;padding:18px 20px;border:1px solid #c9dfe3;border-radius:16px;background:#f1f9fa}
+.pl-guide-summary strong{display:block;font-size:clamp(24px,3vw,34px);line-height:1.25;color:#12324d;margin:7px 0}
+.pl-guide-summary p{font-size:12px;line-height:1.5;color:#527078;margin:0}
+.pricebook table{margin:28px 0}
+.pricebook td a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:600px){.pl-guide-summary{padding:16px}.pricebook table td.price{font-size:17px}}
+html,body{overflow-x:hidden}

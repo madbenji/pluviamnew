@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="index,follow">
+  <meta name="description" content="Presenta tu organización y solicita acceso a WATERNET, la red privada de colaboración profesional.">
+  <meta name="theme-color" content="#071824">
+  <title>WATERNET · Red de colaboración profesional</title>
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    :root{--wt-bg:#071824;--wt-card:#0c2b38;--wt-line:rgba(131,232,218,.24);--wt-ink:#edfffb;--wt-muted:#b7d1d3;--wt-accent:#85efdc}
+    body{margin:0;background:radial-gradient(circle at 84% 2%,#154a4b 0,transparent 34%),var(--wt-bg);color:var(--wt-ink);font-family:Inter,system-ui,sans-serif}
+    .wt-shell{max-width:1120px;margin:auto;padding:24px 18px 60px}.wt-nav{display:flex;align-items:center;gap:20px;flex-wrap:wrap}.wt-nav a{color:#d8f5ef;text-decoration:none}.wt-brand{margin-right:auto;font-weight:950;letter-spacing:.14em}.wt-hero{padding:clamp(60px,10vw,112px) 0 52px;border-bottom:1px solid var(--wt-line)}.wt-kicker{color:var(--wt-accent);font-weight:850;font-size:11px;letter-spacing:.2em;text-transform:uppercase}.wt-hero h1{max-width:820px;font-size:clamp(48px,8vw,92px);line-height:.98;letter-spacing:-.065em;margin:18px 0}.wt-hero h1 em{color:#9ff2df;font-weight:350}.wt-hero p,.wt-copy{max-width:740px;color:var(--wt-muted);line-height:1.75}.wt-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}.wt-button{display:inline-flex;justify-content:center;align-items:center;padding:13px 18px;border:1px solid var(--wt-line);border-radius:10px;background:#c8f2df;color:#083b35;text-decoration:none;font-weight:850;cursor:pointer}.wt-button.secondary{background:transparent;color:#d8f5ef}.wt-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:28px 0 64px}.wt-card,.wt-form{border:1px solid var(--wt-line);border-radius:18px;background:rgba(12,43,56,.78);padding:22px}.wt-card h2{font-size:19px;margin:10px 0}.wt-card p{margin:0;color:var(--wt-muted);line-height:1.65;font-size:14px}.wt-form{margin-top:22px}.wt-form h2{margin:8px 0}.wt-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.wt-form-grid label{display:flex;flex-direction:column;gap:7px;color:#d8f5ef;font-size:13px}.wt-form-grid input,.wt-form-grid select{width:100%;box-sizing:border-box;padding:12px;border:1px solid var(--wt-line);border-radius:8px;background:#071824;color:var(--wt-ink)}.wt-wide{grid-column:1/-1}.wt-consent{display:flex!important;flex-direction:row!important;align-items:flex-start;gap:8px!important;margin:14px 0}.wt-consent input{margin-top:3px}.wt-status{min-height:24px;color:#a7f5e4}.wt-footer{display:flex;gap:16px;flex-wrap:wrap;margin-top:38px;padding-top:22px;border-top:1px solid var(--wt-line);color:#a9c5c7;font-size:12px}.wt-footer a{color:#c9efe7}@media(max-width:760px){.wt-grid{grid-template-columns:1fr}.wt-form-grid{grid-template-columns:1fr}.wt-wide{grid-column:auto}.wt-nav{gap:12px}.wt-brand{width:100%}}
+  </style>
+  <script defer src="/ally.js"></script>
+</head>
+<body>
+  <div class="wt-shell">
+    <nav class="wt-nav" aria-label="Navegación principal">
+      <a class="wt-brand" href="/waternet/">WATERNET</a>
+      <a href="/">Sitio principal</a>
+      <a href="#registro">Solicitar incorporación</a>
+      <a href="/waternet/portal/">Área privada</a>
+    </nav>
+    <header class="wt-hero">
+      <span class="wt-kicker">WATERNET · COLABORACIÓN PROFESIONAL</span>
+      <h1>Personas capaces. <em>Proyectos mejor coordinados.</em></h1>
+      <p>Presenta la experiencia, especialidades, cobertura y disponibilidad de tu organización. El registro abre un expediente privado para revisión; la cuenta, el acceso a recursos y la homologación se habilitan en pasos separados.</p>
+      <div class="wt-actions"><a class="wt-button" href="#registro">Iniciar registro ↗</a><a class="wt-button secondary" href="/waternet/portal/">Entrar al área privada ↗</a></div>
+    </header>
+    <main>
+      <section aria-label="Cómo funciona WATERNET">
+        <div class="wt-grid">
+          <article class="wt-card"><span class="wt-kicker">01 · REGISTRO</span><h2>Cuéntanos quién eres</h2><p>Comparte tus datos profesionales, servicios, cobertura y disponibilidad. El sistema guarda un folio y tu consentimiento.</p></article>
+          <article class="wt-card"><span class="wt-kicker">02 · REVISIÓN</span><h2>El expediente queda pendiente</h2><p>El equipo revisa cada perfil. El acceso a una cuenta no equivale a homologación ni habilita asignaciones.</p></article>
+          <article class="wt-card"><span class="wt-kicker">03 · ACCESO INDIVIDUAL</span><h2>Consulta tu propio espacio</h2><p>Las invitaciones son individuales y requieren verificación de identidad. Cada organización ve sólo su expediente y los materiales permitidos.</p></article>
+        </div>
+      </section>
+      <section id="registro" class="wt-form" aria-labelledby="wt-register-heading">
+        <span class="wt-kicker" id="ally-form-kicker">SOLICITUD DE INCORPORACIÓN</span>
+        <h2 id="wt-register-heading">Registra tu perfil profesional.</h2>
+        <p class="wt-copy" id="ally-form-description">Tu solicitud queda pendiente de revisión. No concede acceso, asigna proyectos, activa una relación contractual ni autoriza la publicación de tu marca.</p>
+        <form id="ally-intake-form" novalidate>
+          <div class="wt-form-grid">
+            <label>Nombre completo<input id="ally-name" required maxlength="120" autocomplete="name"></label>
+            <label>Empresa / organización<input id="ally-company" maxlength="140" autocomplete="organization"></label>
+            <label>Correo profesional<input id="ally-email" type="email" required maxlength="180" autocomplete="email"></label>
+            <label>Teléfono / WhatsApp<input id="ally-phone" required maxlength="30" autocomplete="tel"></label>
+            <label>Ciudad base<input id="ally-city" required maxlength="80" placeholder="Guadalajara, CDMX…"></label>
+            <label>Forma de colaboración<select id="ally-role" required><option value="EJECUTOR">Servicios técnicos</option><option value="REFERIDOR">Referencias profesionales</option><option value="AMBOS">Ambas</option></select></label>
+            <label class="wt-wide">Especialidades, separadas por coma<input id="ally-services" required maxlength="360" placeholder="captación, instalación, ingeniería"></label>
+            <label class="wt-wide">Cobertura, separada por coma<input id="ally-coverage" required maxlength="360" placeholder="Guadalajara, Zapopan"></label>
+            <label>Capacidad mensual<input id="ally-capacity" type="number" min="0" max="100" step="1" value="0" required></label>
+            <label>Disponibilidad<select id="ally-availability" required><option value="ahora">Disponible ahora</option><option value="semana">Esta semana</option><option value="mes">Este mes</option><option value="saturado">Sin disponibilidad</option></select></label>
+          </div>
+          <div id="ally-captcha" hidden></div>
+          <label class="wt-consent"><input id="ally-consent" type="checkbox" required><span>Acepto que mis datos se utilicen para evaluar esta solicitud de incorporación.</span></label>
+          <label class="wt-consent"><input id="ally-privacy" type="checkbox" required><span>He leído el <a href="/privacidad.html" target="_blank" rel="noopener">aviso de privacidad</a>. No enviaré documentos ni credenciales en este formulario.</span></label>
+          <label class="wt-consent"><input id="ally-logo" type="checkbox"><span>Quiero conversar sobre el uso de la marca de mi organización. Esta casilla no concede permiso de publicación.</span></label>
+          <p class="wt-status" id="ally-form-status" role="status" aria-live="polite">Comprobando disponibilidad…</p>
+          <button class="wt-button" id="ally-submit" type="submit">Guardar solicitud ↗</button>
+        </form>
+        <section id="bienvenida" class="wt-welcome" hidden aria-labelledby="ally-welcome-heading" role="status" aria-live="polite">
+          <span class="wt-kicker">REGISTRO RECIBIDO</span>
+          <h2 id="ally-welcome-heading">¡Bienvenido a WATERNET!</h2>
+          <p class="wt-copy">Tu expediente quedó guardado y pendiente de revisión. Este registro no concede homologación ni asigna proyectos.</p>
+          <p class="wt-copy">Tu folio: <strong id="ally-welcome-folio"></strong></p>
+          <a class="wt-button" href="/waternet/portal/">Continuar a mi perfil privado ↗</a>
+          <p class="wt-copy">El perfil privado requiere verificación de tu identidad e invitación individual. Los cambios de perfil se guardan en tu organización y quedan sujetos a revisión.</p>
+        </section>
+      </section>
+    </main>
+    <footer class="wt-footer"><a href="/">Inicio</a><a href="/privacidad.html">Privacidad</a><a href="/contacto.html">Contacto</a><span>WATERNET · Acceso bajo invitación individual</span></footer>
+  </div>
+</body>
+</html>

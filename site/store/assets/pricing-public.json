@@ -1,0 +1,147 @@
+{
+  "date": "2026-11-02",
+  "currency": "MXN",
+  "priceMode": "orientative_not_offer",
+  "products": {
+    "filtro-bajo-tarja": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "jarra-filtrante": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "cartucho-sedimentos": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "filtro-grifo": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "jarra-vidrio": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "tinaco-1100": {
+      "guidePrice": null,
+      "guideType": "fabricante"
+    },
+    "cisterna-proyecto": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "garrafon-19": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "dispensador": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "sistema-lluvia": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "kit-tlaloc": {
+      "guidePrice": null,
+      "guideType": "fabricante"
+    },
+    "filtro-hojas": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "primera-lluvia": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "canaletas": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "monitor-fugas": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "grifo-cocina": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "vaso-vidrio": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "jarra-cobre": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "vasos-cobre": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "garrafon-cobre": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "bomba": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "valvulas": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "kit-mantenimiento": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "diagnostico": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "proyecto-ejecutivo": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "instalacion": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "mantenimiento": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "plu-mesa": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "plu-cocina": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "plu-reserva-s": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "plu-reserva-m": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "plu-lluvia-s": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "plu-lluvia-m": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "plu-inmueble-l": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    },
+    "plu-proyecto-especial": {
+      "guidePrice": null,
+      "guideType": "estimacion"
+    }
+  }
+}

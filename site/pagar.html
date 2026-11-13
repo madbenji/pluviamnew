@@ -7,14 +7,11 @@
 <header class="topbar"><a class="brand" href="/"><img src="/pluviam-logo-transparente.png" alt=""><span>PLUVIAM<small>INFRAESTRUCTURA HÍDRICA</small></span></a>
 <a class="back" href="/mi-proyecto.html">Mi proyecto <span aria-hidden="true">↗</span></a></header>
 <main>
-<div class="hero"><div class="eyebrow"><span class="live-dot"></span> PORTAL PRIVADO DE PAGO</div><h1>Tu proyecto, <em>un paso adelante.</em></h1><p>Revisa tu propuesta, acepta sus condiciones y elige cómo pagar de forma segura. La confirmación se verifica directamente con el proveedor de pago.</p></div>
+<div class="hero"><div class="eyebrow"><span class="live-dot"></span> PROPUESTA APROBADA · ACCESO PRIVADO</div><h1>Tu proyecto, <em>un paso adelante.</em></h1><p>Revisa una propuesta autorizada y, si corresponde, consulta las opciones de pago habilitadas para ese expediente. No se genera ningún cobro al entrar.</p></div>
 <section class="quick-pay" aria-labelledby="quick-pay-heading">
- <div class="quick-pay-head"><div><span class="eyebrow">TRES FORMAS DE PAGAR</span><h2 id="quick-pay-heading">Elige tu método</h2></div><p>Selecciona tu método. Si acabas de guardar tu diagnóstico, tu expediente se recupera automáticamente en este navegador.</p></div>
- <div class="quick-pay-cards" id="quick-pay-cards">
-  <button type="button" class="quick-pay-card" data-pay-method="mercadopago"><span class="quick-symbol">▤</span><b>Mercado Pago</b><small>Tarjeta / Checkout Pro</small><span class="quick-cta">Continuar ↗</span></button>
-  <button type="button" class="quick-pay-card" data-pay-method="spei"><span class="quick-symbol">⌁</span><b>SPEI / CoDi</b><small>Transferencia bancaria</small><span class="quick-cta">Continuar ↗</span></button>
-  <button type="button" class="quick-pay-card" data-pay-method="crypto"><span class="quick-symbol">₿</span><b>Criptomonedas</b><small>USDT / Crypto gateway</small><span class="quick-cta">Continuar ↗</span></button>
- </div><p class="quick-pay-feedback" role="status" aria-live="polite" id="quick-pay-feedback">Los tres métodos se muestran siempre. El importe se consulta antes de procesar el pago.</p>
+ <div class="quick-pay-head"><div><span class="eyebrow">PAGO CON AUTORIZACIÓN</span><h2 id="quick-pay-heading">Primero verifica tu propuesta</h2></div><p>Los métodos sólo aparecen después de consultar un folio privado con una propuesta aprobada y una cuenta habilitada.</p></div>
+ <div class="quick-pay-cards" id="quick-pay-cards" hidden aria-hidden="true"></div>
+ <p class="quick-pay-feedback" role="status" aria-live="polite" id="quick-pay-feedback">No hay métodos de cobro públicos disponibles. Ingresa tu folio y clave privada para comprobar si tu expediente tiene una opción autorizada.</p>
 </section>
 <div class="layout"><section class="panel" aria-labelledby="access-title"><div class="section-title"><span class="step">01</span><h2 id="access-title">Accede a tu propuesta</h2></div>
 <p id="account-summary" class="account-summary" hidden></p><form id="access-form" autocomplete="off"><label>Folio del proyecto<input id="folio" name="folio" placeholder="PLV-..." maxlength="65" required spellcheck="false"></label>

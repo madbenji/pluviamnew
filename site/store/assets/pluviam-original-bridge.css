@@ -1,0 +1,21 @@
+/* Visual bridge: styling scoped ONLY to /store/ pages; never load on original / */
+:root{--deep:#090e23;--ink:#121831;--teal:#04ceca;--forest:#0b1b35;--gold:#ac9bf1;--mint:#dcfcfa;--cream:#f7f8fc}
+.topbar{background:#090d20;color:#9fb5d6;font-size:10px;letter-spacing:.15em;text-transform:uppercase}
+.navouter{background:#0a0f25!important;border-bottom:1px solid #25304c!important;box-shadow:0 8px 27px #05091b1a}
+.navouter .navlinks a{color:#e4ecfb!important;font-size:12px;letter-spacing:.02em}
+.navouter .navlinks a:hover,.navouter .navlinks a.nav-pluviam-store{color:#7deaf3!important}
+.navouter .brandname{color:#f4f8ff!important;letter-spacing:.12em!important}
+.navouter .brandname em{color:#b6c7e4!important;letter-spacing:.2em!important}
+.navouter .navright .btn{background:#14213a!important;color:#f3fbff!important;border-color:#28435b!important}
+.navouter .menu-toggle{color:#d8ebf9}
+.store-sections{background:#101b35;display:flex;justify-content:center;flex-wrap:wrap;gap:24px;padding:10px 18px;color:#ddeafc;font-size:11px;font-weight:700;letter-spacing:.015em}
+.store-sections a:hover,.store-sections a:focus-visible{color:#72e9eb}
+.site-shell .eyebrow{color:#00858f}
+.btn.primary{background:#11203d!important;color:#f2fafe!important}
+.btn.primary:hover{background:#194c68!important}
+@media(max-width:900px){.store-sections{gap:10px 18px;padding:9px 12px;font-size:10px}}
+@media(max-width:480px){.store-sections a{white-space:nowrap}.store-sections{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:thin}}
+
+/* Referencias públicas visibles: no son precios de venta de Pluviam. */
+.fabricante-ref-price{background:rgba(27,91,117,.06);border:1px solid rgba(31,117,135,.24);border-radius:15px;padding:16px 20px;margin:14px 0;line-height:1.55}
+.fabricante-ref-price p{font-weight:700;margin:.65em 0}.fabricante-ref-price small{font-size:12px}.fabricante-ref-price a,.public-prices-link{color:#0d7986;text-decoration:underline}.public-price-ref{display:block;font-size:11px;color:#176377;font-weight:700}.prodfoot{flex-wrap:wrap;gap:7px}.public-prices-link{display:block;margin-top:10px}

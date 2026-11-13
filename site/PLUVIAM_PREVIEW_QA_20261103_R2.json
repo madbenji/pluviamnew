@@ -1,0 +1,33 @@
+{
+  "artifact": "PLUVIAM 3.0 fused Preview route correction",
+  "target": "Cloudflare Pages project pluviam, branch overdrive-e2e",
+  "status": "PREVIEW_READY_FOR_REMOTE_QA",
+  "production": "unchanged",
+  "payments": "disabled",
+  "external_communications": "disabled",
+  "d1": "DB_BETA only; no production migration",
+  "worker": {
+    "advanced_mode": true,
+    "assets_fetch": "env.ASSETS.fetch(request)",
+    "clean_url_aliases": "enabled for public route HTML and store product pages"
+  },
+  "catalog": {
+    "product_pages": 35,
+    "store_categories": 8,
+    "historical_assets": "included",
+    "cart": "local selection only; no payment or automatic email"
+  },
+  "visual": {
+    "original_site_preserved": true,
+    "new_pages_use_original_pluviam_tokens": true,
+    "avianny": "current /avianny.js and /avianny.css; avianny-guia.js not referenced"
+  },
+  "route_fixes": [
+    "/ofertas/", "/industrial/", "/gobierno/", "/hi-care/", "/aliados/", "/colaborar/",
+    "/store/catalogo", "/store/carrito", "/store/kits", "/store/suscripciones",
+    "/store/captacion", "/store/accesorios", "/store/cobre", "/store/hogar",
+    "/store/servicios", "/store/configura", "/store/descubre", "/store/diagnostico",
+    "/store/precios", "/store/tienda", "/store/productos/<id>"
+  ],
+  "remote_authentication": "required before authenticated functional QA"
+}

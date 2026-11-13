@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive"><meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#071824"><title>WATERNET · Área privada</title>
+  <link rel="icon" href="/favicon.png" type="image/png"><link rel="stylesheet" href="../../styles.css">
+  <style>
+    .wt-page{max-width:1120px;margin:0 auto;padding:38px 20px 72px}.wt-hero{max-width:760px;margin-bottom:22px}.wt-kicker{color:#6ee7d2;font-size:.76rem;letter-spacing:.16em;font-weight:850}.wt-muted{color:#9eb8c4;line-height:1.65}.wt-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.wt-card{border:1px solid rgba(110,231,210,.24);border-radius:20px;background:rgba(8,33,47,.86);padding:22px}.wt-card h2{margin:8px 0 16px}.wt-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.wt-card label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:#d9f4ee}.wt-card input,.wt-card textarea,.wt-card select{box-sizing:border-box;width:100%;padding:10px;border:1px solid rgba(110,231,210,.24);border-radius:8px;background:#071824;color:#edfffb}.wt-card input[type=checkbox]{width:auto}.wt-wide{grid-column:1/-1}.wt-button{display:inline-flex;align-items:center;justify-content:center;margin-top:12px;padding:11px 16px;border:0;border-radius:9px;background:#c8f2df;color:#083b35;font-weight:850;cursor:pointer}.wt-button.secondary{background:#123a45;color:#d9f4ee;border:1px solid rgba(110,231,210,.24)}.wt-status{padding:14px;border-radius:12px;background:rgba(110,231,210,.08);color:#d6faf3}.wt-error{color:#ffb4a8}.wt-list{display:grid;gap:10px}.wt-item{padding:13px;border:1px solid rgba(255,255,255,.12);border-radius:10px}.wt-item h3{margin:0 0 5px}.wt-item p{white-space:pre-wrap;color:#b8d1d5}.wt-item a{color:#8ff1dc;font-weight:750}.wt-image-preview{display:block;max-width:180px;max-height:150px;object-fit:contain;margin-top:8px;border-radius:8px}.wt-profile-meta{display:flex;gap:12px;flex-wrap:wrap}.wt-chip{padding:5px 9px;border:1px solid rgba(110,231,210,.24);border-radius:999px;color:#b9e5de;font-size:12px}@media(max-width:720px){.wt-page{padding:25px 14px 56px}.wt-grid,.wt-form-grid{grid-template-columns:1fr}.wt-wide{grid-column:auto}}
+  </style>
+</head>
+<body><div class="atmosphere" aria-hidden="true"></div><div class="shell">
+  <header class="nav"><a class="brand" href="/waternet/"><span>WATERNET</span></a><a class="nav-action" href="/waternet/">← Registro</a></header>
+  <main class="wt-page">
+    <section class="wt-hero"><div class="wt-kicker">WATERNET · ESPACIO PRIVADO</div><h1>Tu perfil y tus recursos.</h1><p class="wt-muted">El folio de invitación activa una sesión segura para el portal. Los datos y novedades corresponden sólo a tu organización. El estado de perfil y la revisión técnica son decisiones distintas.</p></section>
+    <section id="portal-status" class="wt-status" role="status" aria-live="polite">Comprobando tu sesión del portal…</section>
+    <section id="invite-section" class="wt-card" hidden style="margin-top:16px"><div class="wt-kicker">INVITACIÓN INDIVIDUAL</div><h2>Activa tu acceso.</h2><p class="wt-muted">Ingresa el folio de invitación de un solo uso. Al validarlo, iniciaremos una sesión segura para este portal.</p><form id="invite-form"><label>Folio de invitación<input id="invite-token" type="password" autocomplete="one-time-code" required minlength="50" maxlength="150"></label><button class="wt-button" type="submit">Verificar e ingresar</button></form><p id="invite-status" class="wt-muted" role="status" aria-live="polite"></p></section>
+    <section id="private-content" hidden style="margin-top:16px">
+      <div class="wt-grid">
+        <article class="wt-card"><div class="wt-kicker">IDENTIDAD</div><h2 id="member-name">—</h2><div class="wt-profile-meta"><span class="wt-chip" id="member-org">—</span><span class="wt-chip" id="member-role">—</span><span class="wt-chip" id="member-status">—</span></div><p class="wt-muted">G0 / revisión técnica: <strong id="g0-status">Pendiente</strong>. El acceso al portal no concede homologación ni asignación de proyectos.</p></article>
+        <article class="wt-card"><div class="wt-kicker">TU ORGANIZACIÓN</div><h2 id="org-name">—</h2><p class="wt-muted">Estado del perfil: <strong id="profile-status">Pendiente de revisión</strong></p><p class="wt-muted" id="logo-status">Logotipo privado; autorización de publicación pendiente.</p></article>
+      </div>
+      <form id="profile-form" class="wt-card" style="margin-top:16px">
+        <div class="wt-kicker">PERFIL PROFESIONAL</div><h2>Editar mi perfil</h2>
+        <div class="wt-form-grid">
+          <label>Nombre completo<input id="profile-name" maxlength="120" required></label>
+          <label>Empresa / organización<input id="profile-company" maxlength="140"></label>
+          <label>Correo verificado<input id="profile-email" type="email" disabled></label>
+          <label>Teléfono profesional<input id="profile-phone" maxlength="30" required></label>
+          <label>Ciudad base<input id="profile-city" maxlength="80" required></label>
+          <label>Forma de colaboración<select id="profile-role"><option value="EJECUTOR">Servicios técnicos</option><option value="REFERIDOR">Referencias profesionales</option><option value="AMBOS">Ambas</option></select></label>
+          <label class="wt-wide">Especialidades, separadas por coma<input id="profile-services" maxlength="360" required></label>
+          <label class="wt-wide">Cobertura, separada por coma<input id="profile-coverage" maxlength="360" required></label>
+          <label>Capacidad mensual<input id="profile-capacity" type="number" min="0" max="100" step="1" required></label>
+          <label>Disponibilidad<select id="profile-availability"><option value="ahora">Disponible ahora</option><option value="semana">Esta semana</option><option value="mes">Este mes</option><option value="saturado">Sin disponibilidad</option></select></label>
+          <label>Especialidad profesional<input id="professional-title" maxlength="120"></label>
+          <label>Sitio web profesional<input id="professional-website" type="url" maxlength="300" placeholder="https://"></label>
+          <label class="wt-wide">Resumen profesional<textarea id="professional-bio" rows="4" maxlength="1200"></textarea></label>
+          <label>Fotografía profesional<input id="profile-photo" type="file" accept="image/png,image/jpeg,image/webp"><img id="photo-preview" class="wt-image-preview" alt="Vista previa de fotografía" hidden><span class="wt-muted">PNG, JPG o WebP · máximo 180 KB</span></label><label><span><input id="clear-photo" type="checkbox"> Quitar fotografía actual</span></label>
+          <label>Logotipo de la organización<input id="profile-logo" type="file" accept="image/png,image/jpeg,image/webp"><img id="logo-preview" class="wt-image-preview" alt="Vista previa del logotipo" hidden><span class="wt-muted">Privado hasta contar con autorización escrita · máximo 180 KB</span></label><label><span><input id="clear-logo" type="checkbox"> Quitar logotipo actual</span></label>
+          <label class="wt-wide"><span><input id="logo-permission-interest" type="checkbox"> Solicito que revisen la autorización de mi marca. No autoriza su publicación.</span></label>
+        </div>
+        <button class="wt-button" type="submit">Guardar cambios</button><p id="profile-feedback" class="wt-muted" role="status" aria-live="polite"></p>
+      </form>
+      <div class="wt-grid" style="margin-top:16px">
+        <section class="wt-card"><div class="wt-kicker">NOVEDADES</div><h2>Publicaciones</h2><div id="news-list" class="wt-list"><p class="wt-muted">Cargando…</p></div></section>
+        <section class="wt-card"><div class="wt-kicker">BIBLIOTECA</div><h2>Recursos autorizados</h2><div id="resources-list" class="wt-list"><p class="wt-muted">Cargando…</p></div></section>
+      </div>
+    </section>
+  </main><footer><span>WATERNET · PERFIL PRIVADO</span><span>Acceso individual verificado</span></footer>
+</div><script src="/waternet.js" defer></script></body></html>

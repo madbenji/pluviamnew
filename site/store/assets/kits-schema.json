@@ -1,0 +1,317 @@
+{
+  "version": "1.0.0",
+  "released": "2026-11-01",
+  "commercialStatus": "DEMO-NO-CHECKOUT",
+  "kits": [
+    {
+      "id": "plu-mesa",
+      "name": "Pluviam Mesa",
+      "tagline": "Agua y diseño para tu mesa.",
+      "tier": "S",
+      "family": "cocina",
+      "img": "carafe",
+      "goal": [
+        "cocina",
+        "hogar"
+      ],
+      "use": [
+        "drink",
+        "nonpotable",
+        "storage",
+        "project"
+      ],
+      "components": [
+        "jarra-vidrio",
+        "vaso-vidrio"
+      ],
+      "optionals": [
+        "jarra-filtrante"
+      ],
+      "requirements": [
+        "Confirmar características y aptitud alimentaria de cada pieza antes de vender"
+      ],
+      "requiresSite": false,
+      "design": false
+    },
+    {
+      "id": "plu-cocina",
+      "name": "Pluviam Cocina",
+      "tagline": "Explora tratamiento en el punto de uso.",
+      "tier": "S",
+      "family": "cocina",
+      "img": "under-sink",
+      "goal": [
+        "cocina"
+      ],
+      "use": [
+        "drink",
+        "project"
+      ],
+      "components": [
+        "filtro-bajo-tarja"
+      ],
+      "optionals": [
+        "jarra-vidrio"
+      ],
+      "requirements": [
+        "Analizar calidad del agua de entrada",
+        "Validar tecnología, certificado, instalación y contaminantes que reduce",
+        "Confirmar compatibilidad con grifería, caudal y presión"
+      ],
+      "requiresSite": true,
+      "requiresWaterTest": true,
+      "design": false
+    },
+    {
+      "id": "plu-reserva-s",
+      "name": "Pluviam Reserva S",
+      "tagline": "Tu primera reserva, con criterio.",
+      "tier": "S",
+      "family": "reserva",
+      "img": "tank",
+      "goal": [
+        "almacenamiento"
+      ],
+      "use": [
+        "nonpotable",
+        "storage",
+        "project"
+      ],
+      "components": [
+        "tinaco-1100",
+        "valvulas"
+      ],
+      "optionals": [
+        "monitor-fugas"
+      ],
+      "requirements": [
+        "Validar espacio y carga estructural",
+        "Definir capacidad según demanda real",
+        "Separar usos y proteger calidad del agua almacenada"
+      ],
+      "requiresSite": true,
+      "design": true
+    },
+    {
+      "id": "plu-reserva-m",
+      "name": "Pluviam Reserva M",
+      "tagline": "Reserva e integración para el hogar.",
+      "tier": "M",
+      "family": "reserva",
+      "img": "pump",
+      "goal": [
+        "almacenamiento"
+      ],
+      "use": [
+        "nonpotable",
+        "storage",
+        "project"
+      ],
+      "components": [
+        "cisterna-proyecto",
+        "bomba",
+        "valvulas"
+      ],
+      "optionals": [
+        "monitor-fugas"
+      ],
+      "requirements": [
+        "Calcular volumen de diseño, presión y cargas",
+        "Comprobar sitio y obra civil, electricidad y permisos",
+        "Validar instalaciones hidráulicas y seguridad"
+      ],
+      "requiresSite": true,
+      "design": true
+    },
+    {
+      "id": "plu-lluvia-s",
+      "name": "Pluviam Lluvia S",
+      "tagline": "Empieza con la lluvia de tu techo.",
+      "tier": "S",
+      "family": "pluvial",
+      "img": "gutter",
+      "goal": [
+        "captacion"
+      ],
+      "use": [
+        "nonpotable",
+        "storage",
+        "project"
+      ],
+      "components": [
+        "filtro-hojas",
+        "primera-lluvia",
+        "canaletas"
+      ],
+      "optionals": [
+        "tinaco-1100"
+      ],
+      "requirements": [
+        "Inspeccionar material, área y pendiente de cubierta",
+        "Validar lluvia local, escurrimientos, desvío y rebose",
+        "Definir almacenamiento y uso no potable; no implica potabilidad"
+      ],
+      "requiresSite": true,
+      "design": true
+    },
+    {
+      "id": "plu-lluvia-m",
+      "name": "Pluviam Lluvia M",
+      "tagline": "Captación y almacenamiento integrados.",
+      "tier": "M",
+      "family": "pluvial",
+      "img": "rain-home",
+      "goal": [
+        "captacion"
+      ],
+      "use": [
+        "nonpotable",
+        "storage",
+        "project"
+      ],
+      "components": [
+        "filtro-hojas",
+        "primera-lluvia",
+        "cisterna-proyecto",
+        "valvulas"
+      ],
+      "optionals": [
+        "bomba",
+        "monitor-fugas"
+      ],
+      "requirements": [
+        "Dimensionar con precipitación, área útil y demanda",
+        "Inspeccionar cubierta y sitio de cisterna",
+        "Acreditar separación sanitaria, seguridad, montaje y garantía"
+      ],
+      "requiresSite": true,
+      "design": true
+    },
+    {
+      "id": "plu-inmueble-l",
+      "name": "Pluviam Inmueble L",
+      "tagline": "Ingeniería integral para inmuebles de mayor escala.",
+      "tier": "L",
+      "family": "pluvial",
+      "img": "rain-home",
+      "goal": [
+        "captacion",
+        "almacenamiento"
+      ],
+      "use": [
+        "nonpotable",
+        "storage",
+        "project"
+      ],
+      "components": [
+        "diagnostico",
+        "proyecto-ejecutivo",
+        "sistema-lluvia"
+      ],
+      "optionals": [
+        "mantenimiento",
+        "monitor-fugas"
+      ],
+      "requirements": [
+        "Ingeniería específica y responsables verificados",
+        "BOM, 2 RFQ y permisos aplicables",
+        "Contrato, técnicos G0, QA y garantía por hito"
+      ],
+      "requiresSite": true,
+      "design": true,
+      "complex": true
+    },
+    {
+      "id": "plu-proyecto-especial",
+      "name": "Pluviam Proyecto Especial",
+      "tagline": "Un estudio antes de elegir equipos.",
+      "tier": "PRO",
+      "family": "ingenieria",
+      "img": "rain-home",
+      "goal": [
+        "captacion",
+        "almacenamiento",
+        "cocina",
+        "hogar"
+      ],
+      "use": [
+        "drink",
+        "nonpotable",
+        "storage",
+        "project"
+      ],
+      "components": [
+        "diagnostico",
+        "proyecto-ejecutivo"
+      ],
+      "optionals": [],
+      "requirements": [
+        "Definir proceso, normativa, responsable y diseño específico",
+        "No asignar un kit residencial automáticamente",
+        "Cotizar estudio técnico con entregable aprobado"
+      ],
+      "requiresSite": true,
+      "design": true,
+      "complex": true
+    }
+  ],
+  "choices": {
+    "space": [
+      "res",
+      "kitchen",
+      "business",
+      "industry"
+    ],
+    "goal": [
+      "cocina",
+      "almacenamiento",
+      "captacion",
+      "hogar"
+    ],
+    "storage": [
+      "has",
+      "none",
+      "unknown",
+      "replace"
+    ],
+    "use": [
+      "drink",
+      "nonpotable",
+      "storage",
+      "project"
+    ],
+    "stage": [
+      "explore",
+      "compare",
+      "evaluate",
+      "ready"
+    ]
+  },
+  "sourceValues": [
+    "unknown",
+    "municipal",
+    "rain",
+    "well",
+    "mixed"
+  ],
+  "roofValues": [
+    "unknown",
+    "lt60",
+    "60-150",
+    "150-300",
+    "gt300"
+  ],
+  "statuses": {
+    "exploratoria": "Selección inicial · sujeta a revisión",
+    "tecnica": "Evaluación técnica requerida",
+    "sanitaria": "Validación sanitaria antes de recomendar",
+    "especial": "Proyecto a medida · estudio profesional"
+  },
+  "prohibitedClaims": [
+    "potabilidad automática",
+    "ahorro garantizado",
+    "apto para beber sin análisis",
+    "precio vinculante sin oferta",
+    "instalación sin G0"
+  ]
+}

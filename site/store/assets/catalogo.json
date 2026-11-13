@@ -1,0 +1,696 @@
+{
+  "categories": {
+    "cocina": {
+      "label": "Cocina y filtración",
+      "title": "El agua que acompaña tu día.",
+      "intro": "Explora alternativas para filtrar, servir y disfrutar agua en la cocina. La tecnología correcta depende de la calidad del agua de entrada.",
+      "img": "under-sink",
+      "accent": "El bienestar empieza en lo cotidiano."
+    },
+    "almacenamiento": {
+      "label": "Almacenamiento",
+      "title": "Más espacio para lo esencial.",
+      "intro": "Tinacos, cisternas, garrafones y soluciones que ayudan a organizar tu reserva. La capacidad y colocación se validan según tu propiedad.",
+      "img": "tank",
+      "accent": "Una reserva diseñada para tu forma de vivir."
+    },
+    "captacion": {
+      "label": "Captación pluvial",
+      "title": "De la lluvia a nuevas posibilidades.",
+      "intro": "Descubre cómo una cubierta puede integrarse a un sistema de captación para usos compatibles, siempre después de evaluar el inmueble.",
+      "img": "rain-home",
+      "accent": "Cada gota puede tener un propósito."
+    },
+    "hogar": {
+      "label": "Accesorios del hogar",
+      "title": "Pequeñas mejoras. Grandes hábitos.",
+      "intro": "Objetos y dispositivos para cuidar el agua, detectar fugas y equipar tus espacios con más intención.",
+      "img": "faucet",
+      "accent": "Diseño inteligente en cada detalle."
+    },
+    "cobre": {
+      "label": "Colección cobre",
+      "title": "Objetos que merecen quedarse.",
+      "intro": "Una selección conceptual de piezas decorativas y de servicio. Los materiales para contacto con agua potable requieren validación de seguridad alimentaria.",
+      "img": "copper",
+      "accent": "Materia, forma y artesanía."
+    },
+    "accesorios": {
+      "label": "Equipos y componentes",
+      "title": "Lo que hace funcionar al sistema.",
+      "intro": "Bombeo, cartuchos, válvulas y accesorios técnicos. Compatibilidad, presión, materiales y garantía siempre por verificar.",
+      "img": "pump",
+      "accent": "Los detalles sostienen el conjunto."
+    },
+    "servicios": {
+      "label": "Proyectos y servicios",
+      "title": "De la idea a una solución real.",
+      "intro": "Diagnósticos, ingeniería, instalación y mantenimiento coordinados, sujetos a alcance, contrato y disponibilidad de especialistas.",
+      "img": "rain-home",
+      "accent": "Lo elegimos juntos. Lo hacemos posible."
+    },
+    "paquetes": {
+      "label": "Paquetes Pluviam",
+      "title": "Un sistema. Una decisión más simple.",
+      "intro": "Kits conceptuales por necesidad y escala. La configuración final, ingeniería y el precio requieren validación.",
+      "img": "rain-home",
+      "accent": "Desde la cocina hasta el inmueble completo."
+    }
+  },
+  "products": [
+    {
+      "id": "filtro-bajo-tarja",
+      "cat": "cocina",
+      "name": "Sistema de filtración bajo tarja",
+      "subtitle": "Solución discreta para el punto de uso en cocina.",
+      "img": "under-sink",
+      "badge": "A evaluar",
+      "bullets": [
+        "Selección según análisis del agua de entrada",
+        "Configuración de cartuchos y conexiones por confirmar",
+        "Mantenimiento sujeto a fabricante"
+      ],
+      "benefits": [
+        "Integración discreta",
+        "Solución adaptable"
+      ],
+      "caution": "La filtración no garantiza potabilidad sin tecnología certificada y evaluación adecuada."
+    },
+    {
+      "id": "jarra-filtrante",
+      "cat": "cocina",
+      "name": "Jarra filtrante con cartucho",
+      "subtitle": "Una forma sencilla de servir agua con tratamiento por cartucho.",
+      "img": "pitcher",
+      "badge": "Cocina",
+      "bullets": [
+        "Capacidad y recambios dependen del modelo",
+        "Comprobar certificación y contaminantes que reduce",
+        "Agua de entrada conforme a instrucciones"
+      ],
+      "benefits": [
+        "Uso cotidiano",
+        "Formato de sobremesa"
+      ],
+      "caution": "No elimina todos los contaminantes ni hace potable cualquier fuente."
+    },
+    {
+      "id": "cartucho-sedimentos",
+      "cat": "cocina",
+      "name": "Cartucho para sedimentos",
+      "subtitle": "Consumible cuya micra y compatibilidad se eligen por sistema.",
+      "img": "cartridge",
+      "badge": "Refacción",
+      "bullets": [
+        "Micraje específico por confirmar",
+        "Revisar caudal y presión de operación",
+        "Sustitución según uso y fabricante"
+      ],
+      "benefits": [
+        "Mantenimiento fácil",
+        "Ajuste por necesidad"
+      ],
+      "caution": "El cartucho no sustituye desinfección ni análisis de agua."
+    },
+    {
+      "id": "filtro-grifo",
+      "cat": "cocina",
+      "name": "Accesorio para filtración en grifo",
+      "subtitle": "Opción compacta para grifería compatible.",
+      "img": "faucet",
+      "badge": "Compatibilidad",
+      "bullets": [
+        "Tipo de conector a validar",
+        "Desempeño sujeto a cartucho y certificación",
+        "Revisar presión disponible"
+      ],
+      "benefits": [
+        "Integración compacta",
+        "Sin obra mayor en ciertos casos"
+      ],
+      "caution": "Solo puede afirmarse remoción de contaminantes según ficha certificada."
+    },
+    {
+      "id": "jarra-vidrio",
+      "cat": "cocina",
+      "name": "Jarra de vidrio para mesa",
+      "subtitle": "Diseño limpio para servir agua previamente segura.",
+      "img": "carafe",
+      "badge": "Mesa",
+      "bullets": [
+        "Aptitud para contacto alimentario por verificar",
+        "Dimensiones y capacidad por seleccionar",
+        "No incluye ningún sistema de filtración"
+      ],
+      "benefits": [
+        "Servicio de mesa",
+        "Estilo atemporal"
+      ],
+      "caution": "Una jarra no purifica ni desinfecta agua."
+    },
+    {
+      "id": "tinaco-1100",
+      "cat": "almacenamiento",
+      "name": "Tinaco equipado de 1,100 litros",
+      "subtitle": "Referencia de capacidad doméstica para reserva.",
+      "img": "tank",
+      "badge": "Referencia Rotoplas",
+      "bullets": [
+        "Capacidad nominal de referencia: 1,100 L",
+        "Ubicación y soporte estructural sujetos a visita",
+        "Modelo, entrega, accesorios y garantía según proveedor"
+      ],
+      "benefits": [
+        "Capacidad generosa",
+        "Integración residencial"
+      ],
+      "caution": "El visual es conceptual y no representa un SKU Rotoplas. Pluviam todavía no confirma inventario ni precio.",
+      "sourceName": "Rotoplas · referencia oficial",
+      "sourceUrl": "https://rotoplas.com.mx/product/Tinaco-Plus-equipado-1-100-litros-color-beige/"
+    },
+    {
+      "id": "cisterna-proyecto",
+      "cat": "almacenamiento",
+      "name": "Cisterna a medida",
+      "subtitle": "Reserva integrada según espacio, demanda y condiciones constructivas.",
+      "img": "tank",
+      "badge": "Proyecto",
+      "bullets": [
+        "Capacidad por cálculo de demanda",
+        "Obra civil y ubicación por definir",
+        "Accesos, rebosadero e higiene a revisar"
+      ],
+      "benefits": [
+        "Mayor reserva",
+        "Diseño por inmueble"
+      ],
+      "caution": "Requiere inspección y propuesta técnica; no se puede comprar como instalación cerrada."
+    },
+    {
+      "id": "garrafon-19",
+      "cat": "almacenamiento",
+      "name": "Garrafón reutilizable de 19 L",
+      "subtitle": "Recipiente para agua previamente apta y material verificado.",
+      "img": "garrafon",
+      "badge": "Hogar",
+      "bullets": [
+        "Capacidad de referencia: 19 litros",
+        "Material, tapa e higiene por validar",
+        "Sin llenado ni distribución de agua"
+      ],
+      "benefits": [
+        "Solución portable",
+        "Uso cotidiano"
+      ],
+      "caution": "Venta para consumo condicionada a aptitud alimentaria y proveedor habilitado."
+    },
+    {
+      "id": "dispensador",
+      "cat": "almacenamiento",
+      "name": "Dispensador doméstico",
+      "subtitle": "Una estación sencilla para servir agua almacenada.",
+      "img": "garrafon",
+      "badge": "Cocina",
+      "bullets": [
+        "Compatibilidad con garrafón/tamaño",
+        "Tipo manual o eléctrico por seleccionar",
+        "Limpieza y garantía según fabricante"
+      ],
+      "benefits": [
+        "Acceso cómodo",
+        "Diversos formatos"
+      ],
+      "caution": "Agua debe ser segura antes de introducirse al dispensador."
+    },
+    {
+      "id": "sistema-lluvia",
+      "cat": "captacion",
+      "name": "Sistema integral de captación",
+      "subtitle": "Proyecto diseñado para aprovechar lluvia desde una cubierta compatible.",
+      "img": "rain-home",
+      "badge": "Proyecto integral",
+      "bullets": [
+        "Evaluación de cubierta, bajantes y usos",
+        "Pretratamiento, almacenamiento y bombeo según estudio",
+        "Diseño, ejecución y QA sujetos a disponibilidad"
+      ],
+      "benefits": [
+        "Proyecto integral",
+        "Coordinación técnica"
+      ],
+      "caution": "No representa plano de obra ni ahorro garantizado. Requiere diagnóstico."
+    },
+    {
+      "id": "kit-tlaloc",
+      "cat": "captacion",
+      "name": "Kit Tláloc Urbano · referencia",
+      "subtitle": "Referencia de componentes comerciales para captación pluvial.",
+      "img": "gutter",
+      "badge": "Referencia Isla Urbana",
+      "bullets": [
+        "El fabricante describe un tren de pretratamiento y filtros",
+        "Instalación, cisterna e integración no incluidas en esta propuesta Pluviam",
+        "Compatibilidad y derechos de distribución pendientes"
+      ],
+      "benefits": [
+        "Sistema modular",
+        "Referencia verificable"
+      ],
+      "caution": "La imagen es ilustrativa, no fotografía del kit. No equivale a oferta autorizada de Pluviam.",
+      "sourceName": "Isla Urbana · ficha oficial",
+      "sourceUrl": "https://islaurbana.mx/product/kit-tlaloc-urbano/"
+    },
+    {
+      "id": "filtro-hojas",
+      "cat": "captacion",
+      "name": "Filtro de hojas para bajante",
+      "subtitle": "Retención de residuos gruesos en recorridos de lluvia.",
+      "img": "gutter",
+      "badge": "Componente",
+      "bullets": [
+        "Diámetro del tubo por confirmar",
+        "Ubicación de limpieza accesible",
+        "Compatibilidad hidráulica por validar"
+      ],
+      "benefits": [
+        "Pretratamiento",
+        "Mantenimiento accesible"
+      ],
+      "caution": "No garantiza potabilidad ni reemplaza otros tratamientos."
+    },
+    {
+      "id": "primera-lluvia",
+      "cat": "captacion",
+      "name": "Separador de primera lluvia",
+      "subtitle": "Elemento para gestionar parte del arrastre inicial de la lluvia.",
+      "img": "gutter",
+      "badge": "Componente",
+      "bullets": [
+        "Volumen por dimensionar",
+        "Requiere purga y mantenimiento",
+        "Instalación según cubierta y pluvial"
+      ],
+      "benefits": [
+        "Control inicial",
+        "Integración por diseño"
+      ],
+      "caution": "La eficacia depende del diseño, mantenimiento y uso final."
+    },
+    {
+      "id": "canaletas",
+      "cat": "captacion",
+      "name": "Canaletas y bajantes",
+      "subtitle": "Conducción de escurrimientos hacia el sistema de captación.",
+      "img": "gutter",
+      "badge": "A medida",
+      "bullets": [
+        "Material, pendiente y recorrido a determinar",
+        "Trabajos de altura a presupuestar",
+        "Visita y seguridad requeridas"
+      ],
+      "benefits": [
+        "Integración arquitectónica",
+        "Por dimensionar"
+      ],
+      "caution": "No se ofrece instalación automática sin reconocimiento del inmueble."
+    },
+    {
+      "id": "monitor-fugas",
+      "cat": "hogar",
+      "name": "Sensor de detección de fugas",
+      "subtitle": "Dispositivo de aviso temprano para zonas propensas a humedad.",
+      "img": "sensor",
+      "badge": "Smart home",
+      "bullets": [
+        "Alimentación y conectividad por definir",
+        "Ubicación según riesgo",
+        "Alcance y sensibilidad según modelo"
+      ],
+      "benefits": [
+        "Monitoreo",
+        "Complemento de hogar"
+      ],
+      "caution": "No sustituye revisión de plomería ni evita todas las pérdidas."
+    },
+    {
+      "id": "grifo-cocina",
+      "cat": "hogar",
+      "name": "Grifería funcional para cocina",
+      "subtitle": "Accesorios y acabados para modernizar el punto de uso.",
+      "img": "faucet",
+      "badge": "Hogar",
+      "bullets": [
+        "Medidas y presión de conexión",
+        "Material de contacto con agua a validar",
+        "Instalación según red existente"
+      ],
+      "benefits": [
+        "Detalles de diseño",
+        "Uso diario"
+      ],
+      "caution": "Compatibilidad y homologaciones pendientes de ficha."
+    },
+    {
+      "id": "vaso-vidrio",
+      "cat": "hogar",
+      "name": "Vasos y servicio de mesa",
+      "subtitle": "Piezas para presentar agua previamente apta.",
+      "img": "carafe",
+      "badge": "Mesa",
+      "bullets": [
+        "Colección por seleccionar",
+        "Material y limpieza según fabricante",
+        "Juego y capacidades por definir"
+      ],
+      "benefits": [
+        "Mesa y hogar",
+        "Diseño sobrio"
+      ],
+      "caution": "No representa un producto abastecido todavía."
+    },
+    {
+      "id": "jarra-cobre",
+      "cat": "cobre",
+      "name": "Jarra martillada en cobre",
+      "subtitle": "Pieza decorativa de inspiración artesanal.",
+      "img": "copper",
+      "badge": "Colección editorial",
+      "bullets": [
+        "Acabado, lacado y proceso de fabricación por confirmar",
+        "Uso sugerido: decoración, salvo certificación alimentaria",
+        "Origen y producción artesanal pendientes"
+      ],
+      "benefits": [
+        "Objeto decorativo",
+        "Acabado cálido"
+      ],
+      "caution": "NO usar para almacenar bebidas o agua de consumo sin validación de seguridad alimentaria."
+    },
+    {
+      "id": "vasos-cobre",
+      "cat": "cobre",
+      "name": "Juego de vasos de cobre",
+      "subtitle": "Piezas de carácter artesanal para decoración o servicio futuro.",
+      "img": "copper",
+      "badge": "Colección editorial",
+      "bullets": [
+        "Superficie interior y recubrimiento por verificar",
+        "Fabricante y garantía no confirmados",
+        "Posible colección decorativa"
+      ],
+      "benefits": [
+        "Estética artesanal",
+        "Acabados únicos"
+      ],
+      "caution": "No comercializar como vaso apto para bebidas hasta validar materiales y uso."
+    },
+    {
+      "id": "garrafon-cobre",
+      "cat": "cobre",
+      "name": "Garrafón decorativo de cobre",
+      "subtitle": "Una pieza escultórica que celebra la materia y el diseño.",
+      "img": "copper",
+      "badge": "Colección conceptual",
+      "bullets": [
+        "Material y soldaduras a homologar",
+        "Fines decorativos en esta fase",
+        "Capacidad no definida"
+      ],
+      "benefits": [
+        "Colección distintiva",
+        "Objeto arquitectónico"
+      ],
+      "caution": "No apto para guardar agua de beber hasta demostrar conformidad sanitaria."
+    },
+    {
+      "id": "bomba",
+      "cat": "accesorios",
+      "name": "Bomba y equipo hidroneumático",
+      "subtitle": "Movimiento y presión del agua según demanda de instalación.",
+      "img": "pump",
+      "badge": "Ingeniería",
+      "bullets": [
+        "Curva hidráulica y caudal por calcular",
+        "Potencia, alimentación y protecciones por confirmar",
+        "Garantía e instalación sujetas a modelo"
+      ],
+      "benefits": [
+        "Distribución controlada",
+        "Proyecto integrado"
+      ],
+      "caution": "Requiere diseño hidráulico, eléctrico y seguridad."
+    },
+    {
+      "id": "valvulas",
+      "cat": "accesorios",
+      "name": "Válvulas y conexiones",
+      "subtitle": "Elementos de control para redes e instalaciones compatibles.",
+      "img": "faucet",
+      "badge": "Componente",
+      "bullets": [
+        "Diámetro y material a definir",
+        "Presión y compatibilidad por revisar",
+        "Lista de materiales bajo alcance"
+      ],
+      "benefits": [
+        "Mantenimiento",
+        "Control de flujo"
+      ],
+      "caution": "El artículo final depende del sistema técnico."
+    },
+    {
+      "id": "kit-mantenimiento",
+      "cat": "accesorios",
+      "name": "Refacciones de mantenimiento",
+      "subtitle": "Accesorios y consumibles para sistemas previamente identificados.",
+      "img": "cartridge",
+      "badge": "Mantenimiento",
+      "bullets": [
+        "Modelo del equipo necesario",
+        "Repuestos y garantía por validar",
+        "Frecuencia según servicio"
+      ],
+      "benefits": [
+        "Continuidad",
+        "Mejor planificación"
+      ],
+      "caution": "No vendemos refacciones equivalentes sin confirmar compatibilidad."
+    },
+    {
+      "id": "diagnostico",
+      "cat": "servicios",
+      "name": "Evaluación técnica de inmueble",
+      "subtitle": "Una ruta profesional para estudiar la viabilidad del sistema.",
+      "img": "rain-home",
+      "badge": "Servicio bajo validación",
+      "bullets": [
+        "Alcance y entregables por escrito",
+        "Técnico G0 y disponibilidad por confirmar",
+        "Tarifa y facturación antes de pago"
+      ],
+      "benefits": [
+        "Claridad antes de obra",
+        "Propuesta estructurada"
+      ],
+      "caution": "No reservar ni cobrar hasta contar con técnico, contrato y precio habilitados."
+    },
+    {
+      "id": "proyecto-ejecutivo",
+      "cat": "servicios",
+      "name": "Diseño y proyecto ejecutivo",
+      "subtitle": "Ingeniería de sistemas hídricos según inmueble o actividad.",
+      "img": "rain-home",
+      "badge": "Especializado",
+      "bullets": [
+        "Memoria y diseño por alcance",
+        "Responsable técnico y entregables definidos",
+        "Cotización individual"
+      ],
+      "benefits": [
+        "Diseño verificable",
+        "Coordinación profesional"
+      ],
+      "caution": "No sustituye permisos, estudios ni firma del técnico competente."
+    },
+    {
+      "id": "instalacion",
+      "cat": "servicios",
+      "name": "Instalación y puesta en marcha",
+      "subtitle": "Coordinación de la obra contratada y verificación de entrega.",
+      "img": "pump",
+      "badge": "Proyecto por cotizar",
+      "bullets": [
+        "Orden de trabajo y permisos aplicables",
+        "Plan de pruebas y calidad por alcance",
+        "Garantías y responsables por contrato"
+      ],
+      "benefits": [
+        "Ejecución coordinada",
+        "Seguimiento por hitos"
+      ],
+      "caution": "Solo disponible tras propuesta final, G0, capacidad, contrato y pago acreditado."
+    },
+    {
+      "id": "mantenimiento",
+      "cat": "servicios",
+      "name": "Mantenimiento y posventa",
+      "subtitle": "Revisión de sistemas con alcance y frecuencia definidos.",
+      "img": "cartridge",
+      "badge": "Servicio",
+      "bullets": [
+        "Visitas y tareas según sistema",
+        "Repuestos y consumibles por cotizar",
+        "Cobertura, SLA y agenda por confirmar"
+      ],
+      "benefits": [
+        "Cuidado continuo",
+        "Evidencia de trabajo"
+      ],
+      "caution": "Servicio sujeto a equipo, cobertura y términos escritos."
+    },
+    {
+      "id": "plu-mesa",
+      "cat": "paquetes",
+      "name": "Pluviam Mesa",
+      "subtitle": "Agua y diseño para tu mesa.",
+      "img": "carafe",
+      "badge": "Kit S · Por validar",
+      "bullets": [
+        "Incluye como propuesta: jarra vidrio, vaso vidrio",
+        "Extras compatibles sujetos a revisión",
+        "Dimensiones y costos finales dependen de evaluación"
+      ],
+      "benefits": [
+        "Selección integral",
+        "Un solo expediente"
+      ],
+      "caution": "Paquete conceptual: sin precio, stock, instalación ni potabilidad garantizados. Requiere validación de compatibilidad."
+    },
+    {
+      "id": "plu-cocina",
+      "cat": "paquetes",
+      "name": "Pluviam Cocina",
+      "subtitle": "Explora tratamiento en el punto de uso.",
+      "img": "under-sink",
+      "badge": "Kit S · Por validar",
+      "bullets": [
+        "Incluye como propuesta: filtro bajo tarja",
+        "Extras compatibles sujetos a revisión",
+        "Dimensiones y costos finales dependen de evaluación"
+      ],
+      "benefits": [
+        "Selección integral",
+        "Un solo expediente"
+      ],
+      "caution": "Paquete conceptual: sin precio, stock, instalación ni potabilidad garantizados. Requiere validación de compatibilidad."
+    },
+    {
+      "id": "plu-reserva-s",
+      "cat": "paquetes",
+      "name": "Pluviam Reserva S",
+      "subtitle": "Tu primera reserva, con criterio.",
+      "img": "tank",
+      "badge": "Kit S · Por validar",
+      "bullets": [
+        "Incluye como propuesta: tinaco 1100, valvulas",
+        "Extras compatibles sujetos a revisión",
+        "Dimensiones y costos finales dependen de evaluación"
+      ],
+      "benefits": [
+        "Selección integral",
+        "Un solo expediente"
+      ],
+      "caution": "Paquete conceptual: sin precio, stock, instalación ni potabilidad garantizados. Requiere validación de compatibilidad."
+    },
+    {
+      "id": "plu-reserva-m",
+      "cat": "paquetes",
+      "name": "Pluviam Reserva M",
+      "subtitle": "Reserva e integración para el hogar.",
+      "img": "pump",
+      "badge": "Kit M · Por validar",
+      "bullets": [
+        "Incluye como propuesta: cisterna proyecto, bomba, valvulas",
+        "Extras compatibles sujetos a revisión",
+        "Dimensiones y costos finales dependen de evaluación"
+      ],
+      "benefits": [
+        "Selección integral",
+        "Un solo expediente"
+      ],
+      "caution": "Paquete conceptual: sin precio, stock, instalación ni potabilidad garantizados. Requiere validación de compatibilidad."
+    },
+    {
+      "id": "plu-lluvia-s",
+      "cat": "paquetes",
+      "name": "Pluviam Lluvia S",
+      "subtitle": "Empieza con la lluvia de tu techo.",
+      "img": "gutter",
+      "badge": "Kit S · Por validar",
+      "bullets": [
+        "Incluye como propuesta: filtro hojas, primera lluvia, canaletas",
+        "Extras compatibles sujetos a revisión",
+        "Dimensiones y costos finales dependen de evaluación"
+      ],
+      "benefits": [
+        "Selección integral",
+        "Un solo expediente"
+      ],
+      "caution": "Paquete conceptual: sin precio, stock, instalación ni potabilidad garantizados. Requiere validación de compatibilidad."
+    },
+    {
+      "id": "plu-lluvia-m",
+      "cat": "paquetes",
+      "name": "Pluviam Lluvia M",
+      "subtitle": "Captación y almacenamiento integrados.",
+      "img": "rain-home",
+      "badge": "Kit M · Por validar",
+      "bullets": [
+        "Incluye como propuesta: filtro hojas, primera lluvia, cisterna proyecto",
+        "Extras compatibles sujetos a revisión",
+        "Dimensiones y costos finales dependen de evaluación"
+      ],
+      "benefits": [
+        "Selección integral",
+        "Un solo expediente"
+      ],
+      "caution": "Paquete conceptual: sin precio, stock, instalación ni potabilidad garantizados. Requiere validación de compatibilidad."
+    },
+    {
+      "id": "plu-inmueble-l",
+      "cat": "paquetes",
+      "name": "Pluviam Inmueble L",
+      "subtitle": "Ingeniería integral para inmuebles de mayor escala.",
+      "img": "rain-home",
+      "badge": "Kit L · Por validar",
+      "bullets": [
+        "Incluye como propuesta: diagnostico, proyecto ejecutivo, sistema lluvia",
+        "Extras compatibles sujetos a revisión",
+        "Dimensiones y costos finales dependen de evaluación"
+      ],
+      "benefits": [
+        "Selección integral",
+        "Un solo expediente"
+      ],
+      "caution": "Paquete conceptual: sin precio, stock, instalación ni potabilidad garantizados. Requiere validación de compatibilidad."
+    },
+    {
+      "id": "plu-proyecto-especial",
+      "cat": "paquetes",
+      "name": "Pluviam Proyecto Especial",
+      "subtitle": "Un estudio antes de elegir equipos.",
+      "img": "rain-home",
+      "badge": "Kit PRO · Por validar",
+      "bullets": [
+        "Incluye como propuesta: diagnostico, proyecto ejecutivo",
+        "Extras compatibles sujetos a revisión",
+        "Dimensiones y costos finales dependen de evaluación"
+      ],
+      "benefits": [
+        "Selección integral",
+        "Un solo expediente"
+      ],
+      "caution": "Paquete conceptual: sin precio, stock, instalación ni potabilidad garantizados. Requiere validación de compatibilidad."
+    }
+  ]
+}
