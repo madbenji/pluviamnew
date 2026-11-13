@@ -44,12 +44,12 @@ function visitDb({ raceOnInsert = false } = {}) {
       if (state.raceOnInsert && state.batches === 1) {
         const values = statements[0].values;
         state.record = { id: values[0], lead_folio: values[1], status: values[3], next_action: values[22] };
-        state.event = { detail_json: statements[1].values[7] };
+        state.event = { event_type: statements[1].values[2], detail_json: statements[1].values[7] };
         throw new Error("UNIQUE constraint failed: field_visits.idempotency_key");
       }
       const values = statements[0].values;
       state.record = { id: values[0], lead_folio: values[1], status: values[3], next_action: values[22] };
-      state.event = { detail_json: statements[1].values[7] };
+      state.event = { event_type: statements[1].values[2], detail_json: statements[1].values[7] };
       return [];
     },
   };
@@ -188,6 +188,7 @@ test("callback request writes its folio, source channel, preferred time, and nex
   assert.equal(body.appointmentConfirmed, false);
   assert.equal(metadata.requestFolio, body.id);
   assert.equal(metadata.requestType, "callback");
+  assert.equal(state.event.event_type, "VISITA_SOLICITADA");
   assert.equal(metadata.sourceChannel, "avianny_web_chat");
   assert.deepEqual(metadata.availability, ["Martes por la mañana"]);
   assert.match(state.record.next_action, /no está confirmada/);

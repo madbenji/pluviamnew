@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 
 const ui = readFileSync(new URL("../site/avianny.js", import.meta.url), "utf8");
 const styles = readFileSync(new URL("../site/avianny-production.css", import.meta.url), "utf8");
+const admin = readFileSync(new URL("../site/admin.js", import.meta.url), "utf8");
 
 test("Avianny keeps one opening quick-action group and uses the production AI endpoint", () => {
   assert.ok(ui.includes("/api/aviany/chat"));
@@ -33,6 +34,14 @@ test("commercial actions expose safe WhatsApp, callback, visit, and project rout
   assert.ok(ui.includes("/^[1-9]\\d{9,14}$/"));
   assert.ok(ui.includes("https://wa.me/"));
   assert.ok(!/href=[\"']tel:/i.test(ui));
+});
+
+test("CRM detail shows request folio, request type, source channel, and callback event label", () => {
+  assert.ok(admin.includes("'Folio de solicitud'"));
+  assert.ok(admin.includes("'Tipo de solicitud'"));
+  assert.ok(admin.includes("'Canal de origen'"));
+  assert.ok(admin.includes("detail.requestType==='callback'&&v.event_type==='VISITA_SOLICITADA'?'LLAMADA_SOLICITADA'"));
+  assert.ok(admin.includes("sourceMeta.sourceChannel||'No registrado'"));
 });
 
 test("Spanish dictation remains explicit, editable, and never auto-submits", () => {
