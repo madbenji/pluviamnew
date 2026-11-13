@@ -2,9 +2,10 @@
   'use strict';
   if(document.getElementById('avianny-launcher'))return;
 
-  const state={beta:false,aiAvailable:false,busy:false,opened:false,hasInteracted:false,segment:'',messages:[],turnstileToken:'',turnstileWidget:null};
+  const state={beta:false,aiAvailable:false,busy:false,opened:false,hasInteracted:false,segment:'',messages:[],turnstileToken:'',turnstileWidget:null,requestType:'visit',recognition:null,requestKeys:{}};
   const avatarHtml='<img class="avianny-avatar" src="/assets/tlaloq.png" alt="Aviany, guía visual de Pluviam" width="78" height="78" decoding="async">';
   const sessions=()=>sessionStorage.getItem('pluviam-beta-session')||'';
+  const requestKey=(type)=>{const storageKey='pluviam-avianny-request:'+type;let value=state.requestKeys[type];if(value)return value;try{value=sessionStorage.getItem(storageKey)||''}catch{}if(!value)value=crypto.randomUUID?crypto.randomUUID():'avianny-'+Date.now()+'-'+Math.random().toString(36).slice(2);state.requestKeys[type]=value;try{sessionStorage.setItem(storageKey,value)}catch{}return value};
   const esc=(v)=>String(v??'').replace(/[&<>"']/g,(c)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const link=(label,url)=>'<a href="'+url+'">'+label+' ↗</a>';
   const visitButton=(label='Agendar evaluación técnica')=>'<button type="button" data-open-visit="true">'+label+' ↗</button>';
@@ -27,12 +28,12 @@
   button.setAttribute('aria-label','Abrir orientación de Aviany');
   button.innerHTML='<span class="avianny-avatar-wrap">'+avatarHtml+'</span><span class="avianny-launcher-content"><span class="avianny-bubble">Hola, soy Aviany 👋 ¿Calculamos tu sistema?</span><span class="avianny-launcher-label">Aviany · orientación integral</span></span>';
 
-  const visitFormMarkup="<form class=\"avianny-visit-form\" aria-label=\"Solicitud de evaluación técnica\"><div class=\"avianny-visit-grid\"><label>Nombre<input name=\"name\" autocomplete=\"name\" required maxlength=\"120\"></label><label>Contacto preferido<select name=\"contactMethod\" required><option value=\"phone\">Teléfono</option><option value=\"whatsapp\">WhatsApp</option><option value=\"email\">Correo</option></select></label><label>Teléfono<input name=\"phone\" autocomplete=\"tel\" maxlength=\"35\"></label><label>Correo<input name=\"email\" type=\"email\" autocomplete=\"email\" maxlength=\"180\"></label><label>Ciudad / municipio<input name=\"city\" autocomplete=\"address-level2\" required maxlength=\"80\" placeholder=\"Zapopan, Guadalajara…\"></label><label>Tipo de inmueble<select name=\"propertyType\" required><option value=\"residencial\">Residencial</option><option value=\"condominio\">Condominio</option><option value=\"comercial\">Comercial</option><option value=\"industrial\">Industrial</option><option value=\"institucional\">Institucional</option></select></label><label>Servicio que buscas<input name=\"serviceType\" required maxlength=\"120\" placeholder=\"Captación, filtración, mantenimiento…\"></label><label>Disponibilidad aproximada<input name=\"availability\" required maxlength=\"120\" placeholder=\"Días y ventanas de horario\"></label><label>Superficie aproximada (m²)<input name=\"approximateSurfaceM2\" type=\"number\" min=\"0\" max=\"100000\" step=\"1\"></label></div><label>Contexto del proyecto<textarea name=\"context\" rows=\"2\" maxlength=\"900\" placeholder=\"Usos, continuidad, etapa o restricciones relevantes\"></textarea></label><label class=\"avianny-consent\"><input name=\"consent\" type=\"checkbox\" required> Autorizo a PLUVIAM a registrar esta solicitud para revisión operativa y acepto el aviso de privacidad vigente.</label><div class=\"avianny-turnstile\" data-turnstile></div><p class=\"avianny-visit-message\" role=\"status\" aria-live=\"polite\"></p><div class=\"avianny-visit-actions\"><button type=\"submit\">Enviar solicitud</button></div></form>";
+  const visitFormMarkup="<form class=\"avianny-visit-form\" aria-label=\"Solicitud para Operaciones\"><input type=\"hidden\" name=\"requestType\"><input type=\"hidden\" name=\"contactMethod\" value=\"phone\"><div class=\"avianny-visit-grid\"><label>Nombre<input name=\"name\" autocomplete=\"name\" required maxlength=\"120\"></label><label>Teléfono para contacto<input name=\"phone\" type=\"tel\" autocomplete=\"tel\" inputmode=\"tel\" required maxlength=\"35\"></label><label>Ciudad / municipio<input name=\"city\" autocomplete=\"address-level2\" required maxlength=\"80\" placeholder=\"Zapopan, Guadalajara…\"></label><label data-property-field>Tipo de inmueble<select name=\"propertyType\" required><option value=\"\" selected disabled>Selecciona una opción</option><option value=\"residencial\">Residencial</option><option value=\"condominio\">Condominio</option><option value=\"comercial\">Comercial</option><option value=\"industrial\">Industrial</option><option value=\"institucional\">Institucional</option><option value=\"otro\">Otro / no especificado</option></select></label><label>Servicio que buscas<input name=\"serviceType\" required maxlength=\"120\" placeholder=\"Captación, filtración, mantenimiento…\"></label><label>Horario preferido para el contacto<input name=\"availability\" required maxlength=\"120\" placeholder=\"Días y horario aproximado\"></label></div><label class=\"avianny-consent\"><input name=\"consent\" type=\"checkbox\" required> Autorizo a PLUVIAM a registrar esta solicitud para revisión operativa y acepto el <a href=\"/privacidad.html\" target=\"_blank\" rel=\"noopener\">aviso de privacidad</a>.</label><div class=\"avianny-turnstile\" data-turnstile></div><p class=\"avianny-visit-message\" role=\"status\" aria-live=\"polite\"></p><div class=\"avianny-visit-actions\"><button type=\"submit\">Enviar solicitud</button></div></form>";
   const dialog=document.createElement('dialog');
   dialog.id='avianny-dialog';
   dialog.className='avianny-dialog';
   dialog.setAttribute('aria-labelledby','avianny-title');
-  dialog.innerHTML="<div class=\"avianny-head\"><div class=\"avianny-head-brand\">"+avatarHtml+"<div><strong id=\"avianny-title\">Aviany</strong><small><span class=\"avianny-status-dot\" aria-hidden=\"true\"></span>Orientación integral · conectada con Operaciones</small></div></div><button class=\"avianny-close\" type=\"button\" aria-label=\"Cerrar Aviany\">×</button></div><div class=\"avianny-body\"><div class=\"avianny-history\" role=\"log\" aria-live=\"polite\"></div><div class=\"avianny-suggestions\" aria-label=\"Acciones rápidas\"></div><form class=\"avianny-form\"><div class=\"avianny-input-wrap\"><textarea maxlength=\"500\" required rows=\"2\" placeholder=\"Cuéntame qué necesitas resolver…\"></textarea><span>Enter para enviar · Shift + Enter para saltar línea</span></div><button type=\"submit\"><span>Enviar</span><b>↗</b></button></form></div>";
+  dialog.innerHTML="<div class=\"avianny-head\"><div class=\"avianny-head-brand\">"+avatarHtml+"<div><strong id=\"avianny-title\">Aviany</strong><small><span class=\"avianny-status-dot\" aria-hidden=\"true\"></span>Orientación integral · conectada con Operaciones</small></div></div><div class=\"avianny-head-actions\"><button class=\"avianny-minimize\" type=\"button\" aria-label=\"Minimizar Aviany\" title=\"Minimizar\">−</button><button class=\"avianny-close\" type=\"button\" aria-label=\"Cerrar Aviany\" title=\"Cerrar\">×</button></div></div><div class=\"avianny-body\"><nav class=\"avianny-contact-actions\" aria-label=\"Canales de atención\"><button type=\"button\" data-request-type=\"callback\">Solicitar llamada</button><button type=\"button\" data-request-type=\"visit\">Solicitar visita</button><button type=\"button\" data-whatsapp disabled aria-disabled=\"true\" title=\"WhatsApp oficial no configurado\">WhatsApp no configurado</button><a href=\"/mi-proyecto.html\">Mi proyecto</a></nav><div class=\"avianny-history\" role=\"log\" aria-live=\"polite\"></div><div class=\"avianny-suggestions\" aria-label=\"Acciones rápidas\"></div><form class=\"avianny-form\"><div class=\"avianny-input-wrap\"><textarea maxlength=\"500\" required rows=\"2\" aria-label=\"Mensaje para Aviany\" placeholder=\"Cuéntame qué necesitas resolver…\"></textarea><span>Enter para enviar · Shift + Enter para saltar línea</span><div class=\"avianny-voice-controls\"><button class=\"avianny-mic\" type=\"button\" data-mic aria-pressed=\"false\">🎙 Dictar</button><span data-voice-status role=\"status\" aria-live=\"polite\">Al pulsar Dictar, el navegador procesa el audio; el texto queda editable y no se envía hasta que pulses Enviar.</span></div></div><button type=\"submit\"><span>Enviar</span><b>↗</b></button></form></div>";
   document.body.append(button,dialog);
   button.querySelector('.avianny-launcher-label').textContent='Aviany · Asistente de Agua';
   const statusDot=dialog.querySelector('.avianny-status-dot');
@@ -48,6 +49,8 @@
   const submit=form.querySelector('button[type="submit"]');
   const history=dialog.querySelector('.avianny-history');
   const suggestions=dialog.querySelector('.avianny-suggestions');
+  const voiceButton=dialog.querySelector('[data-mic]');
+  const voiceStatus=dialog.querySelector('[data-voice-status]');
   let visitForm=null;
   let visitMessage=null;
   let turnstileBox=null;
@@ -124,24 +127,69 @@
     finally{state.busy=false;submit.disabled=false}
   };
 
-  function openVisit(){
+  function openRequest(type='visit'){
+    state.requestType=type==='callback'?'callback':'visit';
     if(!visitForm){
-      const item=addMessage('assistant','<span class="avianny-author">Aviany · coordinación técnica</span><p>Para solicitar la evaluación, comparte estos datos. Operaciones revisará cobertura y te confirmará el siguiente paso.</p>'+visitFormMarkup);
+      const item=addMessage('assistant','<span class="avianny-author">Aviany · coordinación con Operaciones</span><p data-request-intro></p>'+visitFormMarkup);
       visitForm=item.querySelector('.avianny-visit-form');
       visitMessage=visitForm.querySelector('.avianny-visit-message');
       turnstileBox=visitForm.querySelector('[data-turnstile]');
-      const contactMethod=visitForm.elements.contactMethod;
-      const syncContactRequirements=()=>{visitForm.elements.phone.required=contactMethod.value!=='email';visitForm.elements.email.required=contactMethod.value==='email'};
-      contactMethod.addEventListener('change',syncContactRequirements);
-      syncContactRequirements();
       visitForm.addEventListener('submit',submitVisit);
     }
+    if(visitForm.dataset.submitted==='true'){
+      visitForm.reset();
+      visitForm.hidden=false;
+      visitForm.dataset.submitted='false';
+      visitMessage.textContent='';
+      visitForm.querySelector('.avianny-visit-grid').hidden=false;
+      visitForm.querySelector('.avianny-consent').hidden=false;
+      turnstileBox.hidden=false;
+      visitForm.querySelector('button[type="submit"]').disabled=false;
+      state.turnstileToken='';
+    }
+    const propertyField=visitForm.elements.propertyType;
+    const propertyLabel=visitForm.querySelector('[data-property-field]');
+    const isCallback=state.requestType==='callback';
+    propertyLabel.hidden=isCallback;
+    propertyField.required=!isCallback;
+    visitForm.elements.requestType.value=state.requestType;
+    visitForm.querySelector('[data-request-intro]').textContent=isCallback
+      ?'Comparte el servicio, tu ciudad y el horario en que prefieres que Operaciones intente contactarte. La llamada no queda confirmada al enviar.'
+      :'Comparte los datos necesarios para solicitar una visita. Operaciones revisará cobertura y disponibilidad; el envío no confirma una cita.';
+    visitForm.querySelector('button[type="submit"]').textContent=isCallback?'Solicitar llamada':'Solicitar visita';
+    visitForm.setAttribute('aria-label',isCallback?'Solicitud de llamada':'Solicitud de visita técnica');
     visitForm.hidden=false;
     history.scrollTo({top:history.scrollHeight,behavior:'smooth'});
     ensureTurnstile();
   }
-  function wireVisitActions(){history.querySelectorAll('[data-open-visit]').forEach((quick)=>{quick.onclick=openVisit})}
-  async function ensureTurnstile(){if(!turnstileBox||turnstileBox.dataset.ready||turnstileBox.dataset.loading)return;turnstileBox.dataset.loading='true';try{const status=await fetch('/api/estado',{credentials:'same-origin',cache:'no-store'}).then(r=>r.json());const siteKey=status.turnstileSiteKey;if(!siteKey)throw Error('TURNSTILE_UNAVAILABLE');if(!window.turnstile){await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';script.onload=resolve;script.onerror=reject;document.head.append(script)})}state.turnstileWidget=window.turnstile.render(turnstileBox,{sitekey:siteKey,theme:'dark',callback:(token)=>{state.turnstileToken=token},'expired-callback':()=>{state.turnstileToken=''},'error-callback':()=>{state.turnstileToken=''}});turnstileBox.dataset.ready='true'}catch(_){visitMessage.textContent='No se pudo cargar la comprobación de seguridad. Intenta nuevamente.'}finally{delete turnstileBox.dataset.loading}}
+  function wireVisitActions(){history.querySelectorAll('[data-open-visit]').forEach((quick)=>{quick.onclick=()=>openRequest('visit')})}
+  function configureWhatsApp(){
+    const action=dialog.querySelector('[data-whatsapp]');
+    fetch('/api/estado',{credentials:'same-origin',cache:'no-store'}).then(res=>res.ok?res.json():null).then(status=>{
+      const number=typeof status?.whatsAppNumber==='string'?status.whatsAppNumber:'';
+      if(!/^[1-9]\d{9,14}$/.test(number))return;
+      const anchor=document.createElement('a');
+      anchor.className='avianny-contact-action';anchor.href='https://wa.me/'+number+'?text='+encodeURIComponent('Hola, vengo de Aviany de PLUVIAM.');anchor.target='_blank';anchor.rel='noopener noreferrer';anchor.textContent='WhatsApp';
+      action.replaceWith(anchor);
+    }).catch(()=>{});
+  }
+  function setupSpeechInput(){
+    const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(!SpeechRecognition){voiceButton.disabled=true;voiceStatus.textContent='Dictado no disponible en este navegador; escribe tu mensaje.';return}
+    voiceButton.addEventListener('click',()=>{
+      if(state.recognition){state.recognition.stop();return}
+      let failure='';
+      const recognition=new SpeechRecognition();
+      const prefix=textarea.value.trim();
+      recognition.lang='es-MX';recognition.continuous=false;recognition.interimResults=true;
+      recognition.onstart=()=>{state.recognition=recognition;voiceButton.setAttribute('aria-pressed','true');voiceButton.textContent='Detener dictado';voiceStatus.textContent='Dictando… revisa y edita el texto antes de enviarlo.'};
+      recognition.onresult=(event)=>{const words=Array.from(event.results).map(result=>result[0]?.transcript||'').join(' ').trim();textarea.value=(prefix?prefix+' ':'')+words;textarea.value=textarea.value.slice(0,500);textarea.dispatchEvent(new Event('input',{bubbles:true}))};
+      recognition.onerror=(event)=>{failure=event.error==='not-allowed'||event.error==='service-not-allowed'?'Permiso de micrófono denegado. Puedes escribir tu mensaje.':event.error==='no-speech'?'No se detectó voz. Intenta nuevamente o escribe tu mensaje.':'El dictado no pudo completarse. Puedes escribir tu mensaje.'};
+      recognition.onend=()=>{if(state.recognition===recognition)state.recognition=null;voiceButton.setAttribute('aria-pressed','false');voiceButton.textContent='🎙 Dictar';voiceStatus.textContent=failure||'Transcripción editable. Revísala y pulsa Enviar cuando esté lista.'};
+      try{recognition.start()}catch(_){state.recognition=null;voiceButton.setAttribute('aria-pressed','false');voiceButton.textContent='🎙 Dictar';voiceStatus.textContent='No se pudo iniciar el dictado. Puedes escribir tu mensaje.'}
+    });
+  }
+  async function ensureTurnstile(){if(!turnstileBox||turnstileBox.dataset.ready||turnstileBox.dataset.loading)return;turnstileBox.dataset.loading='true';try{const status=await fetch('/api/estado',{credentials:'same-origin',cache:'no-store'}).then(r=>r.json());const siteKey=status.turnstileSiteKey;if(!siteKey)throw Error('TURNSTILE_UNAVAILABLE');if(!window.turnstile){await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';script.onload=resolve;script.onerror=reject;document.head.append(script)})}state.turnstileWidget=window.turnstile.render(turnstileBox,{sitekey:siteKey,theme:'dark',callback:(token)=>{state.turnstileToken=token},'expired-callback':()=>{state.turnstileToken=''},'error-callback':()=>{state.turnstileToken=''}});turnstileBox.dataset.ready='true'}catch(_){visitMessage.textContent='El registro está bloqueado en este entorno porque no tiene una comprobación anti-spam configurada. No se envió ningún dato.'}finally{delete turnstileBox.dataset.loading}}
   async function submitVisit(e){
     e.preventDefault();
     if(!visitForm.reportValidity())return;
@@ -151,23 +199,35 @@
     submitButton.disabled=true;
     visitMessage.textContent='Registrando la solicitud…';
     try{
-      const res=await fetch('/api/visitas',{method:'POST',headers:{'Content-Type':'application/json','Idempotency-Key':(crypto.randomUUID?crypto.randomUUID():'aviany-'+Date.now())},credentials:'same-origin',body:JSON.stringify({...values,consent:values.consent==='on',turnstile:state.turnstileToken,consentVersion:'pluviam-intake-v1-2026-11-04',availability:[values.availability]})});
+      const type=state.requestType;
+      const res=await fetch('/api/visitas',{method:'POST',headers:{'Content-Type':'application/json','Idempotency-Key':requestKey(type)},credentials:'same-origin',body:JSON.stringify({...values,requestType:type,sourceChannel:'avianny_web_chat',propertyType:values.propertyType||'otro',consent:values.consent==='on',turnstile:state.turnstileToken,consentVersion:'pluviam-intake-v1-2026-11-04',availability:[values.availability]})});
       const data=await res.json().catch(()=>({}));
       if(!res.ok)throw Error(data.error||'No fue posible registrar la solicitud.');
-      visitMessage.textContent='Solicitud recibida · '+data.id+'. Operaciones revisará cobertura y te confirmará el siguiente paso; todavía no es una cita.';
-      visitForm.reset();
-      visitForm.elements.phone.required=true;
-      visitForm.elements.email.required=false;
+      const folio=data.requestFolio||data.id;
+      visitMessage.textContent='Solicitud registrada · folio '+folio+'. '+(type==='callback'?'Operaciones revisará la solicitud para coordinar el contacto; la llamada no está confirmada.':'Operaciones revisará cobertura y disponibilidad; esto aún no es una cita confirmada.');
+      visitForm.dataset.submitted='true';
+      state.requestKeys[type]='';
+      try{sessionStorage.removeItem('pluviam-avianny-request:'+type)}catch{}
+      visitForm.querySelector('.avianny-visit-grid').hidden=true;
+      visitForm.querySelector('.avianny-consent').hidden=true;
+      turnstileBox.hidden=true;
+      submitButton.textContent='Solicitud registrada';
+      submitButton.disabled=true;
       state.turnstileToken='';
       if(window.turnstile&&state.turnstileWidget!==null)window.turnstile.reset(state.turnstileWidget);
     }catch(error){visitMessage.textContent=error.message}
-    finally{submitButton.disabled=false}
+    finally{if(visitForm.dataset.submitted!=='true')submitButton.disabled=false}
   }
   button.addEventListener('click',()=>{state.opened=true;button.classList.remove('is-attention');dialog.showModal();textarea.focus()});
+  dialog.querySelector('.avianny-minimize').addEventListener('click',()=>{state.opened=false;dialog.close()});
   dialog.querySelector('.avianny-close').addEventListener('click',()=>{state.opened=false;dialog.close()});
+  dialog.addEventListener('close',()=>{state.opened=false});
   dialog.addEventListener('click',(e)=>{if(e.target===dialog){state.opened=false;dialog.close()}});
+  dialog.querySelectorAll('[data-request-type]').forEach(action=>action.addEventListener('click',()=>openRequest(action.dataset.requestType)));
   form.addEventListener('submit',(e)=>{e.preventDefault();ask(textarea.value)});
   textarea.addEventListener('keydown',(e)=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();form.requestSubmit()}});
+  configureWhatsApp();
+  setupSpeechInput();
 
   const setMode=(beta)=>{
     state.beta=beta;

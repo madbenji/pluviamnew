@@ -23,6 +23,65 @@ function chatRequest(message, messages = []) {
   });
 }
 
+function visitDb({ raceOnInsert = false } = {}) {
+  const state = { record: null, event: null, batches: 0, raceOnInsert };
+  const db = {
+    prepare(sql) {
+      return {
+        sql,
+        values: [],
+        bind(...values) { this.values = values; return this; },
+        async first() {
+          if (sql.includes("WHERE idempotency_key=?")) return state.record;
+          if (sql.includes("FROM field_visit_events WHERE visit_id=?")) return state.event;
+          return null;
+        },
+        async all() { return { results: [] }; },
+      };
+    },
+    async batch(statements) {
+      state.batches += 1;
+      if (state.raceOnInsert && state.batches === 1) {
+        const values = statements[0].values;
+        state.record = { id: values[0], lead_folio: values[1], status: values[3], next_action: values[22] };
+        state.event = { detail_json: statements[1].values[7] };
+        throw new Error("UNIQUE constraint failed: field_visits.idempotency_key");
+      }
+      const values = statements[0].values;
+      state.record = { id: values[0], lead_folio: values[1], status: values[3], next_action: values[22] };
+      state.event = { detail_json: statements[1].values[7] };
+      return [];
+    },
+  };
+  return { db, state };
+}
+
+function visitRequest(body, key = "avianny-request-test-key") {
+  return new Request("https://pluviam.test/api/visitas", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Idempotency-Key": key },
+    body: JSON.stringify(body),
+  });
+}
+
+function validVisitBody(overrides = {}) {
+  return {
+    name: "María Prueba",
+    contactMethod: "phone",
+    phone: "3312345678",
+    city: "Guadalajara",
+    propertyType: "residencial",
+    serviceType: "Captación de lluvia",
+    availability: ["Martes por la mañana"],
+    consent: true,
+    consentVersion: "pluviam-intake-test-v1",
+    turnstile: "valid-test-token",
+    requestType: "visit",
+    sourceChannel: "avianny_web_chat",
+    ...overrides,
+  };
+}
+
 test("POST /api/aviany/chat returns a validated Workers AI reply without touching D1", async () => {
   let usedModel = "";
   let d1Reads = 0;
@@ -107,4 +166,81 @@ test("POST /api/aviany/chat keeps empty-message validation", async () => {
   );
   assert.equal(response.status, 422);
   assert.equal((await response.json()).error, "Escribe una pregunta para Aviany.");
+});
+
+test("callback request writes its folio, source channel, preferred time, and next action to the existing D1 flow", async () => {
+  const { db, state } = visitDb();
+  const response = await handleAvianyRequest(
+    visitRequest(validVisitBody({ requestType: "callback", propertyType: "", sourceChannel: "avianny_web_chat" })),
+    { DB: db, TURNSTILE_SECRET: "configured-in-test" },
+    "/api/visitas",
+    { ...deps(), validateTurnstile: async () => true },
+  );
+  const body = await response.json();
+  const metadata = JSON.parse(state.event.detail_json);
+
+  assert.equal(response.status, 201);
+  assert.equal(body.status, "SOLICITADA");
+  assert.equal(body.requestType, "callback");
+  assert.equal(body.sourceChannel, "avianny_web_chat");
+  assert.equal(body.requestFolio, body.id);
+  assert.equal(body.callbackConfirmed, false);
+  assert.equal(body.appointmentConfirmed, false);
+  assert.equal(metadata.requestFolio, body.id);
+  assert.equal(metadata.requestType, "callback");
+  assert.equal(metadata.sourceChannel, "avianny_web_chat");
+  assert.deepEqual(metadata.availability, ["Martes por la mañana"]);
+  assert.match(state.record.next_action, /no está confirmada/);
+  assert.equal(state.batches, 1);
+});
+
+test("retries with the same idempotency key return the same request without another D1 insert", async () => {
+  const { db, state } = visitDb();
+  const request = () => visitRequest(validVisitBody({ requestType: "callback" }), "stable-retry-key");
+  const dependencies = { ...deps(), validateTurnstile: async () => true };
+  const env = { DB: db, TURNSTILE_SECRET: "configured-in-test" };
+
+  const created = await handleAvianyRequest(request(), env, "/api/visitas", dependencies);
+  const createdBody = await created.json();
+  const repeated = await handleAvianyRequest(request(), env, "/api/visitas", dependencies);
+  const repeatedBody = await repeated.json();
+
+  assert.equal(created.status, 201);
+  assert.equal(repeated.status, 200);
+  assert.equal(repeatedBody.idempotent, true);
+  assert.equal(repeatedBody.id, createdBody.id);
+  assert.equal(repeatedBody.requestFolio, createdBody.requestFolio);
+  assert.equal(repeatedBody.requestType, "callback");
+  assert.equal(repeatedBody.sourceChannel, "avianny_web_chat");
+  assert.equal(state.batches, 1);
+});
+
+test("idempotency unique-key races read back the already committed D1 request", async () => {
+  const { db, state } = visitDb({ raceOnInsert: true });
+  const response = await handleAvianyRequest(
+    visitRequest(validVisitBody(), "race-key"),
+    { DB: db, TURNSTILE_SECRET: "configured-in-test" },
+    "/api/visitas",
+    { ...deps(), validateTurnstile: async () => true },
+  );
+  const body = await response.json();
+
+  assert.equal(response.status, 200);
+  assert.equal(body.idempotent, true);
+  assert.equal(body.requestType, "visit");
+  assert.equal(body.id, state.record.id);
+  assert.equal(state.batches, 1);
+});
+
+test("callback request rejects missing consent and never writes D1", async () => {
+  const { db, state } = visitDb();
+  const response = await handleAvianyRequest(
+    visitRequest(validVisitBody({ requestType: "callback", consent: false })),
+    { DB: db, TURNSTILE_SECRET: "configured-in-test" },
+    "/api/visitas",
+    { ...deps(), validateTurnstile: async () => true },
+  );
+
+  assert.equal(response.status, 422);
+  assert.equal(state.batches, 0);
 });
