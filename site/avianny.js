@@ -3,7 +3,7 @@
   if(document.getElementById('avianny-launcher'))return;
 
   const state={beta:false,aiAvailable:false,busy:false,opened:false,hasInteracted:false,segment:'',messages:[],turnstileToken:'',turnstileWidget:null};
-  const avatarHtml='<img class="avianny-avatar" src="/assets/tlaloq.png" alt="Aviany, guía visual de Pluviam" width="78" height="78" loading="lazy">';
+  const avatarHtml='<img class="avianny-avatar" src="/assets/tlaloq.png" alt="Aviany, guía visual de Pluviam" width="78" height="78" decoding="async">';
   const sessions=()=>sessionStorage.getItem('pluviam-beta-session')||'';
   const esc=(v)=>String(v??'').replace(/[&<>"']/g,(c)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const link=(label,url)=>'<a href="'+url+'">'+label+' ↗</a>';

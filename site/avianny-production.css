@@ -31,14 +31,17 @@
 
 /* Ajustes solicitados: Avianny más visible y acceso destacado a la tienda. */
 #avianny-launcher .avianny-avatar-wrap{width:80px!important;height:80px!important;flex-basis:80px!important;border:2px solid rgba(126,241,224,.9)!important;background:radial-gradient(circle,rgba(95,226,223,.36),rgba(15,71,82,.78) 70%,rgba(7,23,34,.96))!important;box-shadow:0 0 0 5px rgba(126,241,224,.14),0 10px 28px rgba(0,0,0,.42)!important}
-#avianny-launcher .avianny-avatar{width:78px!important;height:78px!important;max-width:78px!important;object-fit:contain!important;object-position:center!important;filter:drop-shadow(0 3px 9px rgba(91,238,232,.48))!important}
-@media(max-width:520px){#avianny-launcher{min-height:76px!important;max-width:calc(100vw - 24px)!important}#avianny-launcher .avianny-avatar-wrap{width:66px!important;height:66px!important;flex-basis:66px!important}#avianny-launcher .avianny-avatar{width:64px!important;height:64px!important;max-width:64px!important}#avianny-launcher .avianny-launcher-label{max-width:calc(100vw - 110px)!important}}
+#avianny-launcher .avianny-avatar{width:78px!important;height:78px!important;max-width:78px!important;object-fit:cover!important;object-position:center!important;filter:drop-shadow(0 3px 9px rgba(91,238,232,.48))!important}
+#avianny-dialog .avianny-head{min-height:72px!important}
+#avianny-dialog .avianny-head-brand .avianny-avatar{width:58px!important;height:58px!important;max-width:58px!important;object-fit:cover!important;object-position:center!important}
+@media(max-width:520px){#avianny-launcher{min-height:76px!important;max-width:calc(100vw - 24px)!important}#avianny-launcher .avianny-avatar-wrap{width:66px!important;height:66px!important;flex-basis:66px!important}#avianny-launcher .avianny-avatar{width:64px!important;height:64px!important;max-width:64px!important}#avianny-launcher .avianny-launcher-label{max-width:calc(100vw - 110px)!important}#avianny-dialog .avianny-head{min-height:66px!important}#avianny-dialog .avianny-head-brand .avianny-avatar{width:52px!important;height:52px!important;max-width:52px!important}}
 .store-highlight{color:#91f2df!important;font-weight:700!important;background:rgba(90,210,190,.12)!important;border:1px solid rgba(126,241,224,.48)!important;border-radius:999px!important;padding:8px 13px!important;text-decoration:none!important;box-shadow:0 0 16px rgba(91,238,232,.12)!important}
 .store-highlight:hover,.store-highlight:focus-visible{background:rgba(90,210,190,.22)!important;outline:2px solid rgba(126,241,224,.55)!important;outline-offset:2px!important}
 @media(max-width:760px){.pluviam-mobile-menu-links .store-highlight{display:block!important;margin:4px 0 8px!important}}
 
 /* Single-scroll chat flow: preserve the existing PLUVIAM visual language. */
-#avianny-dialog{display:flex!important;flex-direction:column!important;box-sizing:border-box!important}
+#avianny-dialog:not([open]){display:none!important}
+#avianny-dialog[open]{display:flex!important;flex-direction:column!important;box-sizing:border-box!important}
 #avianny-dialog .avianny-head{flex:0 0 auto!important}
 #avianny-dialog .avianny-body{display:flex!important;flex:1 1 auto!important;flex-direction:column!important;min-width:0!important;min-height:0!important;height:auto!important;overflow:hidden!important;box-sizing:border-box!important}
 

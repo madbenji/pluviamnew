@@ -32,3 +32,11 @@ test("chat scrolls in one history pane and the mobile visit form collapses to on
   assert.ok(styles.includes("grid-template-columns:minmax(0,1fr)!important"));
   assert.ok(!styles.includes(".avianny-visit-panel"));
 });
+
+test("chat dialog stays hidden until opened and the close button closes it", () => {
+  assert.ok(styles.includes("#avianny-dialog:not([open]){display:none!important}"));
+  assert.ok(styles.includes("#avianny-dialog[open]{display:flex!important;"));
+  assert.ok(ui.includes("dialog.querySelector('.avianny-close').addEventListener('click',()=>{state.opened=false;dialog.close()})"));
+  assert.ok(styles.includes("object-fit:cover!important;object-position:center!important"));
+  assert.ok(!styles.includes("object-fit:contain!important;object-position:center!important"));
+});
